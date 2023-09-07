@@ -36,19 +36,4 @@ contract ChildCon {
 }
 
 
-contract FactoryCon {
-    uint256 public totalCompanies;
-    mapping (uint => CompanyDetails) public IdToCompanyDetails;
 
-    struct CompanyDetails {
-        string name;
-        address admin;
-
-    }
-
-    
-
-    function autoRenew() public {
-        //
-    }
-}
