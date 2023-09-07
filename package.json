@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/WiseMrMusa/Multi_Pay/issues"
   },
-  "homepage": "https://github.com/WiseMrMusa/Multi_Pay#readme"
+  "homepage": "https://github.com/WiseMrMusa/Multi_Pay#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.3"
+  }
 }
