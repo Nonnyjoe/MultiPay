@@ -4,8 +4,5 @@
 [submodule "lib/forge-std"]
 	branch = v1.6.1
 
-[submodule "SmartContract/lib/openzeppelin-contracts.git"]
-	path = SmartContract/lib/openzeppelin-contracts.git
-	url = https://github.com/OpenZeppelin/openzeppelin-contracts.git
 [submodule "lib/openzeppelin-contracts.git"]
 	branch = v4.9.3
