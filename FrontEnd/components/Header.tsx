@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import { Container } from '../components/Container';
 import { ClassAttributes, Fragment, JSX, SVGProps, HTMLAttributes, useEffect, useRef, JSXElementConstructor, ReactNode, HTMLProps, RefObject, CSSProperties, MutableRefObject, StyleHTMLAttributes } from 'react';
 import { ConnectKitButton } from 'connectkit';
+import { Subscriptions } from './Subscriptions';
 
 function CloseIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
     return (
@@ -90,8 +91,9 @@ function MobileNavigation(props: HTMLAttributes<HTMLElement>) {
                         </div>
                         <nav className="mt-6">
                             <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 ">
-                                <MobileNavItem href="/">Home</MobileNavItem>
-                                <MobileNavItem href="/start">Start</MobileNavItem>
+                                <MobileNavItem href="/app">Dashboard</MobileNavItem>
+                                <MobileNavItem href="/sub">Subscriptions</MobileNavItem>
+                                <MobileNavItem href="/comp">Company</MobileNavItem>
                             </ul>
                         </nav>
                     </Popover.Panel>
@@ -127,14 +129,10 @@ function NavItem({ href, children }: { href: string, children: ReactNode; }) {
 function DesktopNavigation(props: JSX.IntrinsicAttributes & ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement>) {
     return (
         <nav {...props}>
-            <ul className="flex rounded-sm bg-white/90 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur ">
-                <NavItem href="/">Home</NavItem>
-                <NavItem href="/start">Start</NavItem>
-                <NavItem href="/create-organization">Create Organization</NavItem>
-                <NavItem href="/create-plan">Create plan</NavItem>
-                <NavItem href="/manage-plan">Manage plan</NavItem>
-                <NavItem href="/subscribe">Subscribe</NavItem>
-                <NavItem href="/subscriptions">Subscriptions</NavItem>
+            <ul className="flex rounded-sm bg-white/90 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur gap-2 p-2 rounded-lg">
+                <NavItem href="/app">Dashboard</NavItem>
+                <NavItem href="/subs">Subscriptions</NavItem>
+                <NavItem href="/comp">Company</NavItem>
             </ul>
         </nav>
     );
@@ -142,21 +140,15 @@ function DesktopNavigation(props: JSX.IntrinsicAttributes & ClassAttributes<HTML
 
 
 export function Header() {
-    let isHomePage = useRouter().pathname === '/';
-
       return (
         <>
             <header
-                className="pointer-events-none relative z-50 flex flex-col"
-                style={{
-                    height: 'var(--header-height)',
-                    marginBottom: 'var(--header-mb)',
-                }}
+                className="pointer-events-none relative z-50 flex flex-col mt-8"
             >
                 <div
                 >
                     <Container
-                        className="top-[var(--header-top,theme(spacing.6))] w-full"
+                        className=" w-full"
                         style={{ position: 'var(--header-inner-position)' } as unknown as CSSProperties}
                     >
                         <div className="relative flex gap-4">
