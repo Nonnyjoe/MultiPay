@@ -140,7 +140,7 @@ function DesktopNavigation(props: JSX.IntrinsicAttributes & ClassAttributes<HTML
 
 
 export function Header() {
-      return (
+    return (
         <>
             <header
                 className="pointer-events-none relative z-50 flex flex-col mt-8"
@@ -158,12 +158,11 @@ export function Header() {
                                 <MobileNavigation className="pointer-events-auto md:hidden" />
                                 <DesktopNavigation className="pointer-events-auto hidden md:block" />
                             </div>
-                            <div className="flex justify-end md:flex-1">
-                                <div className="pointer-events-auto">
-                                    <ConnectKitButton />
+                            <div className="flex justify-end md:flex-1 pointer-events-auto">
+                                    {/* <ConnectKitButton /> */}
+                                    <AbstractButton />
                                 </div>
-                                <AbstractButton/>
-                            </div>
+                           
                         </div>
                     </Container>
                 </div>
