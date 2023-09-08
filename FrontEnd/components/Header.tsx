@@ -130,6 +130,7 @@ function DesktopNavigation(props: JSX.IntrinsicAttributes & ClassAttributes<HTML
             <ul className="flex rounded-sm bg-white/90 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur ">
                 <NavItem href="/">Home</NavItem>
                 <NavItem href="/start">Start</NavItem>
+                <NavItem href="/create-organization">Create Organization</NavItem>
                 <NavItem href="/create-plan">Create plan</NavItem>
                 <NavItem href="/manage-plan">Manage plan</NavItem>
                 <NavItem href="/subscribe">Subscribe</NavItem>
