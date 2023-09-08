@@ -6,3 +6,8 @@
 
 [submodule "lib/openzeppelin-contracts.git"]
 	branch = v4.9.3
+[submodule "SmartContract/lib/openzeppelin-contracts"]
+	path = SmartContract/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "lib/openzeppelin-contracts"]
+	branch = v4.9.3
