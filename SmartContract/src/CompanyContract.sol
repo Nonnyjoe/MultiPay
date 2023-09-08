@@ -66,12 +66,12 @@ contract CompanyContract {
     }
 
     function activatePlan(uint256 _planId) public returns (bool) {       
-       IdToPlanDetails[_planId].planActive = true;
+       availiablePlans[_planId].planActive = true;
         return true;
     }
 
-    function deactivatePlan(uint256 _planId) public returns (bool success) {
-        IdToPlanDetails[_planId].planActive = false;
+    function deactivatePlan(uint256 _planId) public returns (bool) {
+        availiablePlans[_planId].planActive = false;
         return true;
     }
 
@@ -181,7 +181,7 @@ contract CompanyContract {
     }
 
     function viewPlan(uint256 _planId) public view returns (PlansDetails memory plan) {
-        require(_planId <= availiablePlans.length(), "Plan does not exist");
+        require(_planId <= availiablePlans.length, "Plan does not exist");
         plan = availiablePlans[_planId];
     }
 }
