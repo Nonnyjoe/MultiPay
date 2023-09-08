@@ -41,7 +41,6 @@ contract CompanyContract {
 
     }
 
-
     function createPlan(string memory _planName, uint _planPrice, uint256 _planDuration) public {
         IdToPlanDetails[trackedPlaniDs].planName = _planName;
         IdToPlanDetails[trackedPlaniDs].price = _planPrice;      
