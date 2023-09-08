@@ -14,6 +14,7 @@ contract CompanyContract {
     PlansDetails[] public availiablePlans;
     mapping (uint256 => PlansDetails) public IdToPlanDetails;
     uint trackedPlaniDs;
+    mapping (uint => bool) public activattionStatus;
     
     struct PlansDetails {
         string planName;
@@ -56,19 +57,19 @@ contract CompanyContract {
         trackedPlaniDs++;
     }
 
-    function activatePlan(uint256 _planId) public returns (bool success) {
-        
+    function activatePlan(uint256 _planId) public returns (bool) {       
+       IdToPlanDetails[_planId].planActive = true;
+        return true;
     }
 
     function deactivatePlan(uint256 _planId) public returns (bool success) {
-
+        IdToPlanDetails[_planId].planActive = false;
+        return true;
     }
 
     function subscribe(string memory _userEmail, bool _autoSubscribe, uint256 _planId) public returns (uint256 userId){
         PlansDetails storage _planToSub = IdToPlanDetails[_planId];
-
         require(_planToSub.planActive, "Plan deactivated");
-
         uint256 planDuration = _planToSub.planDuration;
         uint256 userSubEnds = block.timestamp + planDuration;
         UserDetails memory _userInfo =  UserDetails (msg.sender, _userEmail, block.timestamp, userSubEnds, _autoSubscribe);
@@ -79,8 +80,8 @@ contract CompanyContract {
     }
 
     function autoRenew(uint256 _planId) public returns (bool success){
+       //to be called by chainlink
         PlansDetails storage _planToSub = IdToPlanDetails[_planId];
-
         require(_planToSub.planActive, "Plan is not active");
 
     }

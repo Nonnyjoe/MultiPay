@@ -21,6 +21,9 @@ contract FactoryCon {
     mapping (address => address) public ownerToCompany;
     //company address => companyID
     mapping (address => uint256) public Identity;
+    mapping(address => bool) contractAccountStatus;
+    //smartAccount address to array of child contract subscribed to.
+    mapping(address => address[]) public AllSubscriptionContracts;
     bool paused;
     constructor( ) {
         admin = msg.sender;
@@ -56,4 +59,18 @@ contract FactoryCon {
         require(msg.sender == admin);
         paused = false;
     }
+    function AccountcontractState(address contractAccount) public view returns(bool) {
+        return contractAccountStatus[contractAccount];
+    }
+    
+    function UpdateSubscriptionContracts(address _contractSubAddress, address _caller) external returns(bool) {
+        bool status = AccountcontractState(msg.sender);
+        require(status == true, 'NOT_AUTHORIZED');
+        AllSubscriptionContracts[_caller].push(_contractSubAddress);
+        return true;
+    }
+    
+    function returnAllSubscripton(address _caller)external view returns(address[] memory){      
+        return AllSubscriptionContracts[_caller];
+    } 
 }
