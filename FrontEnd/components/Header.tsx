@@ -141,92 +141,10 @@ function DesktopNavigation(props: JSX.IntrinsicAttributes & ClassAttributes<HTML
 }
 
 
-function clamp(number: number, a: number, b: number) {
-    let min = Math.min(a, b);
-    let max = Math.max(a, b);
-    return Math.min(Math.max(number, min), max);
-}
-
-
-
 export function Header() {
     let isHomePage = useRouter().pathname === '/';
 
-    let headerRef: MutableRefObject<HTMLDivElement | null | undefined> = useRef();
-    let avatarRef: MutableRefObject<HTMLDivElement | null | undefined> = useRef();
-    let isInitial: MutableRefObject<boolean> = useRef(true);
-
-    useEffect(() => {
-        let downDelay = avatarRef.current?.offsetTop ?? 0;
-        let upDelay = 64;
-
-        function setProperty(property: string, value: string | null) {
-            document.documentElement.style.setProperty(property, value);
-        }
-
-        function removeProperty(property: string) {
-            document.documentElement.style.removeProperty(property);
-        }
-
-        function updateHeaderStyles() {
-            let rect = headerRef.current?.getBoundingClientRect();
-            let top = rect?.top;
-            let height = rect?.height;
-
-            let scrollY = clamp(
-                window.scrollY,
-                0,
-                document.body.scrollHeight - window.innerHeight
-            );
-
-            if (isInitial.current) {
-                setProperty('--header-position', 'sticky');
-            }
-
-            setProperty('--content-offset', `${downDelay}px`);
-
-            if (top && height)
-
-                if (isInitial.current || scrollY < downDelay) {
-                    setProperty('--header-height', `${downDelay + height}px`);
-                    setProperty('--header-mb', `${-downDelay}px`);
-                } else if (top + height < -upDelay) {
-                    let offset = Math.max(height, scrollY - upDelay);
-                    setProperty('--header-height', `${offset}px`);
-                    setProperty('--header-mb', `${height - offset}px`);
-                } else if (top === 0) {
-                    setProperty('--header-height', `${scrollY + height}px`);
-                    setProperty('--header-mb', `${-scrollY}px`);
-                }
-
-            if (top === 0 && scrollY > 0 && scrollY >= downDelay) {
-                setProperty('--header-inner-position', 'fixed');
-                removeProperty('--header-top');
-                removeProperty('--avatar-top');
-            } else {
-                removeProperty('--header-inner-position');
-                setProperty('--header-top', '0px');
-                setProperty('--avatar-top', '0px');
-            }
-        }
-
-
-        function updateStyles() {
-            updateHeaderStyles();
-            isInitial.current = false;
-        }
-
-        updateStyles();
-        window.addEventListener('scroll', updateStyles, { passive: true });
-        window.addEventListener('resize', updateStyles);
-
-        return () => {
-            window.removeEventListener('scroll', updateStyles);
-            window.removeEventListener('resize', updateStyles);
-        };
-    }, [isHomePage]);
-
-    return (
+      return (
         <>
             <header
                 className="pointer-events-none relative z-50 flex flex-col"
@@ -235,31 +153,7 @@ export function Header() {
                     marginBottom: 'var(--header-mb)',
                 }}
             >
-                {isHomePage && (
-                    <>
-                        <div
-                            ref={avatarRef as unknown as RefObject<HTMLDivElement>}
-                            className="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]"
-                        />
-                        <Container
-                            className="top-0 order-last -mb-3 pt-3"
-                            style={{ position: 'var(--header-position)' as any }}
-                        >
-                            <div
-                                className="top-[var(--avatar-top,theme(spacing.3))] w-full"
-                                style={{ position: 'var(--header-inner-position)' as any }}
-                            >
-                                <div className="relative">
-                             
-                                </div>
-                            </div>
-                        </Container>
-                    </>
-                )}
                 <div
-                    ref={headerRef as unknown as RefObject<HTMLDivElement>}
-                    className="top-0 z-10 h-16 pt-6"
-                    style={{ position: 'var(--header-position)' as any }}
                 >
                     <Container
                         className="top-[var(--header-top,theme(spacing.6))] w-full"
@@ -281,7 +175,6 @@ export function Header() {
                     </Container>
                 </div>
             </header>
-            {isHomePage && <div style={{ height: 'var(--content-offset)' }} />}
         </>
     );
 }
