@@ -11,12 +11,11 @@ contract FactoryCon {
         address adminAddress;
         address CompanyAddress;
     }
-    address public admin;
-    uint256 public totalCompanies = 0;
-    mapping (uint256 => CompanyDetails) public IdToCompanyDetails;
     CompanyDetails[] public allCompanies;
+    mapping (address => CompanyDetails) public addressToCompanyDetails;
     uint256 public totalCompaniesID;
-    address[] companyAddresses;
+    address[] public companyAddresses;
+    address public admin;
     //owner => company ID
     mapping (address => address) public ownerToCompany;
     //company address => companyID
@@ -29,15 +28,13 @@ contract FactoryCon {
     function createCompany(string memory _name, string memory _symbol) public returns (CompanyDetails memory) {
         totalCompaniesID++;
         CompanyContract _companyCon = new CompanyContract(_name, _symbol, totalCompaniesID);
-
         CompanyDetails storage _company = allCompanies[totalCompaniesID];
         _company.CompanyName = _name;
         _company.CompanySymbol = _symbol;
         _company.adminAddress = msg.sender;
         _company.CompanyAddress = address(_companyCon);
-
-
-
+        companyAddresses.push(address(_companyCon));
+        Identity[address(_companyCon)] = totalCompaniesID;
         return (_company);
     }
     function GetALLAddresses() external view returns(CompanyDetails[] memory){

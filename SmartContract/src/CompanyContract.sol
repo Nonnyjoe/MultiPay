@@ -56,4 +56,11 @@ contract CompanyContract {
     function AvailablePlans() public view returns(PlansDetails[] memory){
         return availiablePlans;
     }
+
+    function getCompanyDetails() public view returns(string memory name_, string memory symbol_, address admin_, address companyAddress_) {
+        name_ = name;
+        symbol_ = symbol;
+        admin_ = admin;
+        companyAddress_ = address(this);
+    }
 }
