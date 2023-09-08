@@ -2,19 +2,12 @@
 pragma solidity ^0.8.13;
 
 contract CompanyContract {
-
-    string public name;
-    string public symbol;
-    address public admin;
-    uint256 public nftId;
-    uint256 public totalSubAvailiable;
-    PlansDetails[] public availiablePlans;
-    mapping (uint256 => PlansDetails) public IdToPlanDetails;
-
+    
     struct PlansDetails {
         string planName;
         uint256 price;
         uint256 totalSubscribers;
+        uint planID;
         UserDetails[] subscribersData;
     }
 
@@ -25,6 +18,15 @@ contract CompanyContract {
         uint256 subscriptionEnds;
         bool autoSubscribe;
     }
+    string public name;
+    string public symbol;
+    address public admin;
+    uint256 public nftId;
+    uint256 public totalSubAvailiable;
+    PlansDetails[] public availiablePlans;
+    mapping (uint256 => PlansDetails) public IdToPlanDetails;
+    uint trackedPlaniDs;
+
 
 
     constructor(string memory _name, string memory _symbol, uint256 _nftId){
@@ -36,8 +38,11 @@ contract CompanyContract {
     }
 
 
-    function createPlan(uint256 newNumber) public {
-        //
+    function createPlan(string memory _planName, uint _planPrice) public {
+        IdToPlanDetails[trackedPlaniDs].planName = _planName;
+        IdToPlanDetails[trackedPlaniDs].price = _planPrice;      
+        availiablePlans.push(IdToPlanDetails[trackedPlaniDs]);
+        trackedPlaniDs++;
     }
 
     function subscribe(uint256 PlanId) public {
@@ -46,5 +51,9 @@ contract CompanyContract {
 
     function autoRenew() public {
         // number++;
+    }
+    
+    function AvailablePlans() public view returns(PlansDetails[] memory){
+        return availiablePlans;
     }
 }
