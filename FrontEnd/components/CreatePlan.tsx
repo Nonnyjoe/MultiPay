@@ -8,10 +8,19 @@ export const CreatePlan = () => {
                 <h1 className="font-display text-5xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-7xl">
                     Create a Subscription Plan
                 </h1>
-                <div>
-                    <p>Product</p>
-                    <p>Category</p>
-                    <p>Monthly or yearly</p>
+                <div className="flex flex-col gap-3">
+                    <label htmlFor="plan-name">
+                        Plan Name 
+                        <input type="text" name="plan-name" id="" className="border rounded-lg mx- 4 p-2" />
+                    </label>
+                    <label htmlFor="plan-price">
+                        Plan Price 
+                        <input type="text" name="plan-price" id="" className="border rounded-lg mx- 4 p-2" />
+                    </label>
+                    <label htmlFor="plan-duration">
+                        Plan Duration 
+                        <input type="text" name="plan-duration" id="" className="border rounded-lg mx- 4 p-2" />
+                    </label>
                 </div>
             </FadeIn>
         </Container>
