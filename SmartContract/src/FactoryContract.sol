@@ -1,3 +1,4 @@
+
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
@@ -6,7 +7,6 @@ import "./CompanyContract.sol";
 contract FactoryCon {
 
     address public admin;
-    uint256 public totalCompanies = 0;
     mapping (uint256 => CompanyDetails) public IdToCompanyDetails;
     CompanyDetails[] public allCompanies;
 
@@ -34,17 +34,24 @@ contract FactoryCon {
 
 
     function createCompany(string memory _name, string memory _symbol) public returns (CompanyDetails memory) {
+        
+        totalCompaniesID++;
+        CompanyContract _companyCon = new CompanyContract(_name, _symbol, totalCompaniesID);
 
-        CompanyContract _companyCon = new CompanyContract(_name, _symbol, totalCompanies);
-
-        CompanyDetails storage _company = allCompanies[totalCompanies];
+        CompanyDetails storage _company = allCompanies[totalCompaniesID];
         _company.CompanyName = _name;
         _company.CompanySymbol = _symbol;
         _company.adminAddress = msg.sender;
         _company.CompanyAddress = address(_companyCon);
 
-        totalCompanies++;
 
         return (_company);
     }
+    
+    function returnCompanyContract(address _ownerAddress) public view returns (address){
+        return ownerToCompany[_ownerAddress];
+    } 
+
+
+   
 }
