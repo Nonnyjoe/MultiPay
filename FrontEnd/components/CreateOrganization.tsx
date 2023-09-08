@@ -51,7 +51,7 @@ export const CreateOrganization = () => {
                     <button 
                         type="submit" 
                         onClick={createOrganization}
-                        className="m-0 px-2 border"
+                        className="m-0 p-2 border rounded-lg"
                     >Create Organization</button>
                 </form>
             </FadeIn>
