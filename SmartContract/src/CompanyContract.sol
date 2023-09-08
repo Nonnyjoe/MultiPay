@@ -19,6 +19,7 @@ contract CompanyContract {
         string planName;
         uint256 price;
         uint planID;
+        bool planActive;
         uint256 planDuration;
         uint256 totalSubscribers;
         UserDetails[] subscribersData;
@@ -30,6 +31,11 @@ contract CompanyContract {
         uint256 timeOfSubscription;
         uint256 subscriptionEnds;
         bool autoSubscribe;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == admin, "Only admin can call this function");
+        _;
     }
 
 
@@ -51,8 +57,18 @@ contract CompanyContract {
         trackedPlaniDs++;
     }
 
-    function subscribe(string memory _userEmail, bool _autoSubscribe, uint256 _planId) public {
+    function activatePlan(uint256 _planId) public returns (bool success) {
+        
+    }
+
+    function deactivatePlan(uint256 _planId) public returns (bool success) {
+
+    }
+
+    function subscribe(string memory _userEmail, bool _autoSubscribe, uint256 _planId) public returns (uint256 userId){
         PlansDetails storage _planToSub = IdToPlanDetails[_planId];
+
+        require(_planToSub.planActive, "Plan deactivated");
 
         uint256 planDuration = _planToSub.planDuration;
         uint256 userSubEnds = block.timestamp + planDuration;
@@ -63,8 +79,11 @@ contract CompanyContract {
 
     }
 
-    function autoRenew() public {
-        // number++;
+    function autoRenew(uint256 _planId) public returns (bool success){
+        PlansDetails storage _planToSub = IdToPlanDetails[_planId];
+
+        require(_planToSub.planActive, "Plan is not active");
+
     }
     
     function AvailablePlans() public view returns(PlansDetails[] memory){
