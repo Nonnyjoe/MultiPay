@@ -11,12 +11,12 @@ contract FactoryCon {
         address adminAddress;
         address CompanyAddress;
     }
-    address public admin;
-    uint256 public totalCompanies = 0;
-    mapping (uint256 => CompanyDetails) public IdToCompanyDetails;
+
     CompanyDetails[] public allCompanies;
+    mapping (address => CompanyDetails) public addressToCompanyDetails;
     uint256 public totalCompaniesID;
-    address[] companyAddresses;
+    address[] public companyAddresses;
+    address public admin;
     //owner => company ID
     mapping (address => address) public ownerToCompany;
     //company address => companyID
@@ -40,6 +40,8 @@ contract FactoryCon {
 
         return (_company);
     }
+
+
     function GetALLAddresses() external view returns(CompanyDetails[] memory){
         return allCompanies;
     }
