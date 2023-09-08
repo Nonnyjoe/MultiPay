@@ -7,4 +7,4 @@
 	path = SmartContract/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
 [submodule "lib/openzeppelin-contracts.git"]
-	branch = v4.9.3
+	branch = v4.9.0
