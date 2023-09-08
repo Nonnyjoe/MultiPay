@@ -5,6 +5,7 @@ import { ConnectKitButton } from 'connectkit';
 import { Header } from '../../components/Header';
 import { Subscribe } from '../../components/Subscribe';
 import { CreatePlan } from '../../components/CreatePlan';
+import Layout from '../../components/Layout';
 
 const Home: NextPage = () => {
     return (
@@ -18,8 +19,9 @@ const Home: NextPage = () => {
                 <link href="/favicon.ico" rel="icon" />
             </Head>
             <main>
-                <Header />
-                <CreatePlan />
+                <Layout>
+                    <CreatePlan />
+                </Layout>
             </main>
         </div>
     );

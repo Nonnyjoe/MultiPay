@@ -21,6 +21,7 @@ contract CompanyContract {
     mapping (address => mapping(uint256 => uint256)) trackUsersubscription;
     mapping (uint256 => address[]) public TrackDayToUsers;
     uint trackedPlaniDs;
+    mapping (uint => bool) public activattionStatus;
     
     struct PlansDetails {
         string planName;
@@ -64,19 +65,20 @@ contract CompanyContract {
         trackedPlaniDs++;
     }
 
-    function activatePlan(uint256 _planId) public returns (bool success) {
-        
+    function activatePlan(uint256 _planId) public returns (bool) {       
+       IdToPlanDetails[_planId].planActive = true;
+        return true;
     }
 
     function deactivatePlan(uint256 _planId) public returns (bool success) {
-
+        IdToPlanDetails[_planId].planActive = false;
+        return true;
     }
 
     function subscribe(string memory _userEmail, bool _autoSubscribe, uint256 _planId) public returns (uint256 userId){
         PlansDetails storage _planToSub = availiablePlans[_planId];
 
         require(_planToSub.planActive, "Plan deactivated");
-
         uint256 planDuration = _planToSub.planDuration;
         uint256 userSubEnds = block.timestamp + (planDuration * oneMonthTimestamp);
         UserDetails memory _userInfo =  UserDetails (msg.sender, _userEmail, block.timestamp, userSubEnds, _autoSubscribe);

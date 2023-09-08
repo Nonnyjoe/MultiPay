@@ -62,11 +62,11 @@ const config = createConfig(
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
-      <ConnectKitProvider>
-        <RainbowKitProvider chains={chains}>
-          <Component {...pageProps} />
-        </RainbowKitProvider>
-      </ConnectKitProvider>
+        <ConnectKitProvider>
+          <RainbowKitProvider chains={chains}>
+            <Component {...pageProps} />
+          </RainbowKitProvider>
+        </ConnectKitProvider>
     </WagmiConfig>
   );
 }

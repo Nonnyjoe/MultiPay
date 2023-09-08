@@ -1,12 +1,10 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { ConnectKitButton } from 'connectkit';
-import { Header } from '../../components/Header';
-import { Subscribe } from '../../components/Subscribe';
-import Layout from '../../components/Layout';
+import { Header } from './Header';
 
-const Home: NextPage = () => {
+
+
+const Layout = ({children}: any) => {
     return (
         <div>
             <Head>
@@ -18,12 +16,11 @@ const Home: NextPage = () => {
                 <link href="/favicon.ico" rel="icon" />
             </Head>
             <main>
-                <Layout>
-                    <Subscribe />
-                </Layout>
+                <Header />
+                {children}
             </main>
         </div>
     );
 };
 
-export default Home;
+export default Layout;
