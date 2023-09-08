@@ -26,18 +26,32 @@ contract FactoryCon {
         admin = msg.sender;
     }
 
+<<<<<<<<< Temporary merge branch 1
     function createCompany(string memory _name, string memory _symbol) public returns (CompanyDetails memory) {
         totalCompaniesID++;
         CompanyContract _companyCon = new CompanyContract(_name, _symbol, totalCompaniesID);
+
         CompanyDetails storage _company = allCompanies[totalCompaniesID];
         _company.CompanyName = _name;
         _company.CompanySymbol = _symbol;
         _company.adminAddress = msg.sender;
         _company.CompanyAddress = address(_companyCon);
-        companyAddresses.push(address(_companyCon));
-        Identity[address(_companyCon)] = totalCompaniesID;
-        ownerToCompany[msg.sender] = address(_companyCon);
+
+
+
         return (_company);
+=========
+    function createCompany(string memory _name, string memory _symbol) public returns (address) {
+        CompanyContract _companyCon = new CompanyContract(_name, _symbol, totalCompanies);
+        allCompanyAddress.push(address(_companyCon));
+        // CompanyDetails storage _company = allCompanies[totalCompanies];
+        // _company.CompanyName = _name;
+        // _company.CompanySymbol = _symbol;
+        // _company.adminAddress = msg.sender;
+        // _company.CompanyAddress = address(_companyCon);
+        totalCompanies++;
+        return (address(_companyCon));
+>>>>>>>>> Temporary merge branch 2
     }
     function GetALLAddresses() external view returns(CompanyDetails[] memory){
         return allCompanies;
