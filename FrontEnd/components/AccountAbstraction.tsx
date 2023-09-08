@@ -84,7 +84,7 @@ export const AbstractButton = () => {
 
     return(
         <div>
-            {address && <Button variant='outline' color='slate' > {address.slice(0,12)}...</Button>}
+            {address && <p>Smart Account: {address.slice(0, 6)}...{address.slice(-5, -1)}</p>}
             {address == null && <Button variant='outline' type="submit" onClick={connect}>Login with E-mail</Button> }
         </div>
     )

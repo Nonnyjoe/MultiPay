@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import { Container } from '../components/Container';
 import { ClassAttributes, Fragment, JSX, SVGProps, HTMLAttributes, useEffect, useRef, JSXElementConstructor, ReactNode, HTMLProps, RefObject, CSSProperties, MutableRefObject, StyleHTMLAttributes } from 'react';
 import { ConnectKitButton } from 'connectkit';
-import { Subscriptions } from './Subscriptions';
+import { AbstractButton } from './AccountAbstraction';
 
 function CloseIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
     return (
@@ -162,6 +162,7 @@ export function Header() {
                                 <div className="pointer-events-auto">
                                     <ConnectKitButton />
                                 </div>
+                                <AbstractButton/>
                             </div>
                         </div>
                     </Container>
