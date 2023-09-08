@@ -11,6 +11,7 @@ contract FactoryCon {
         address adminAddress;
         address CompanyAddress;
     }
+
     CompanyDetails[] public allCompanies;
     mapping (address => CompanyDetails) public addressToCompanyDetails;
     uint256 public totalCompaniesID;
@@ -35,6 +36,7 @@ contract FactoryCon {
         _company.CompanyAddress = address(_companyCon);
         companyAddresses.push(address(_companyCon));
         Identity[address(_companyCon)] = totalCompaniesID;
+        ownerToCompany[msg.sender] = address(_companyCon);
         return (_company);
     }
     function GetALLAddresses() external view returns(CompanyDetails[] memory){
