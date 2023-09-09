@@ -15,30 +15,35 @@ export const CreatePlan = () => {
     const [planName, setPlanName] = useState("");
     const [planPrice, setPlanPrice] = useState("");
     const [planDuration, setPlanDuration] = useState("");
-    const [CompanyAddr, setCompanyAddr] = useState<any>();
-    const [owner, setOwner] = useState<Address>();
+    const [CompanyAddr, setCompanyAddr] = useState<any>("0x00");
+    const [owner, setOwner] = useState<Address>("0x00");
 
     const {provider, smartAccount} = useContext(SmartAccountContext);
 
-    const {data: ownerToCompanyData} = useContractRead({
-        address: "0xC523CC0c5F2db71a456D9a69d3f89e59258e9160",
+    const {data: ownerToCompanyData, isSuccess: ownerToCompanyIsSuccess} = useContractRead({
+        address: FactoryAddr(),
         abi: FactoryAbi,
         functionName: "ownerToCompany",
-        args: [owner],
-        onSuccess(data){
-            console.log(data);
-            setCompanyAddr(data);
-        }
+        args: [owner ?? "0x00"],
+        // onSuccess(data){
+        //     console.log(data);
+        //     console.log("wheuih;oe;fio");
+        //     setCompanyAddr(data);
+        // }
     })
 
     useEffect(() => {
-        let smAccount = smartAccount?.getSmartAccountAddress();
-        setOwner(smAccount);
-    }, [CompanyAddr]);
+        setOwner(smartAccount?.getSmartAccountAddress());
+        if (ownerToCompanyIsSuccess) {
+            console.log(ownerToCompanyIsSuccess)
+            setCompanyAddr(ownerToCompanyData);
+        };
+        console.log(CompanyAddr);
+        console.log(owner);
+    }, [CompanyAddr, smartAccount, ownerToCompanyData, ownerToCompanyIsSuccess]);
 
-    console.log(CompanyAddr);
 
-    const contract = new ethers.Contract("0xe2dd3E46257cc1AD413F679Caea89A560fdE3e38", CompanyAbi, provider);
+    const contract = new ethers.Contract(CompanyAddr, CompanyAbi, provider);
     
     const createPlan = async (e: any) => {
         e.preventDefault();
@@ -74,6 +79,7 @@ export const CreatePlan = () => {
                 <h1 className="font-display text-5xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-7xl">
                     Create a Subscription Plan
                 </h1>
+                <p>Comp Addr: {CompanyAddr}</p>
                 <form className="flex flex-col gap-3">
                     <label htmlFor="plan-name">
                         Plan Name 

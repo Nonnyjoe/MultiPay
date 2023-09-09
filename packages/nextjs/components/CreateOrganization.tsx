@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Container } from "./Container";
 import { FadeIn } from "./FadeIn";
 import { ethers } from "ethers";
@@ -11,8 +11,13 @@ export const CreateOrganization = () => {
 
     const [organizationName, setOrganizationName] = useState("");
     const [organizationSymbol, setOrganizationSymbol] = useState("");
+    const [userAddress, setUserAddress] = useState("");
 
     const {provider, smartAccount} = useContext(SmartAccountContext);
+
+    useEffect(() => {
+        setUserAddress(smartAccount?.getSmartAccountAddress());
+    }, [smartAccount])
 
 
     const contract = new ethers.Contract(FactoryAddr(), FactoryAbi, provider);
@@ -20,7 +25,7 @@ export const CreateOrganization = () => {
 
     const createOrganization = async (e: any) => {
         e.preventDefault();
-        const minTx = await contract.populateTransaction.createCompany(organizationName, organizationSymbol, "0xe2dd3E46257cc1AD413F679Caea89A560fdE3e38");
+        const minTx = await contract.populateTransaction.createCompany(organizationName, organizationSymbol, userAddress);
         console.log(minTx.data);
         const tx1 = {
             to: FactoryAddr(),
