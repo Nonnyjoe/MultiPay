@@ -7,8 +7,36 @@ import { Header } from '../../components/Header';
 import { Subscriptions } from '../../components/Subscriptions';
 import Layout from '../../components/Layout';
 import { UsersSideNav } from '~~/components/UsersSideNav';
+import { gql, useQuery } from 'urql';
+
+const TodosQuery = gql`
+{
+    planCreateds {
+      id
+      name
+      planId
+      blockNumber
+      blockTimestamp
+      duration
+      price
+      transactionHash
+    }
+  }
+`;
+
 
 const Home: NextPage = () => {
+
+    const [result, reexecuteQuery] = useQuery({
+        query: TodosQuery,
+      });
+    
+      const { data, fetching, error } = result;
+      console.log(data);
+      if (fetching) return <p>Loading...</p>;
+      if (error) return <p>Oh no... {error.message}</p>;
+
+
     return (
         <div>
             <Head>
@@ -21,10 +49,7 @@ const Home: NextPage = () => {
             </Head>
             <main>
                 <Layout>
-                    <div className="flex flex-row">
-                        <UsersSideNav />
-                        <Subscriptions />
-                    </div>
+                    <Subscriptions />
                 </Layout>
             </main>
         </div>
