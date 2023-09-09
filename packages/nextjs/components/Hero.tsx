@@ -18,6 +18,8 @@ export const Hero = () => {
         <div className="flex mt-8 gap-4">
           <AbstractButton />
           <ButtonLink href="/app"> Start App</ButtonLink>
+          <ButtonLink href="/comp"> Proceed as Company</ButtonLink>
+          <ButtonLink href="/subs"> Proceed as User</ButtonLink>
         </div>
       </FadeIn>
     </Container>

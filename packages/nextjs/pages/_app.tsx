@@ -11,6 +11,7 @@ import { SmartAccountProvider } from "~~/context/SmartAccount";
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
     mainnet,
+    goerli,
     polygon,
     optimism,
     arbitrum,

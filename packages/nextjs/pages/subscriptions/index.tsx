@@ -6,6 +6,7 @@ import { Hero } from '../../components/Hero';
 import { Header } from '../../components/Header';
 import { Subscriptions } from '../../components/Subscriptions';
 import Layout from '../../components/Layout';
+import { UsersSideNav } from '~~/components/UsersSideNav';
 
 const Home: NextPage = () => {
     return (
@@ -20,7 +21,10 @@ const Home: NextPage = () => {
             </Head>
             <main>
                 <Layout>
-                    <Subscriptions />
+                    <div className="flex flex-row">
+                        <UsersSideNav />
+                        <Subscriptions />
+                    </div>
                 </Layout>
             </main>
         </div>

@@ -6,6 +6,7 @@ import { Header } from '../../components/Header';
 import { Subscribe } from '../../components/Subscribe';
 import { CreatePlan } from '../../components/CreatePlan';
 import Layout from '../../components/Layout';
+import { CompanySideNav } from '~~/components/CompanySideNav';
 
 const Home: NextPage = () => {
     return (
@@ -20,7 +21,10 @@ const Home: NextPage = () => {
             </Head>
             <main>
                 <Layout>
+                <div className="flex flex-row">
+                    <CompanySideNav />
                     <CreatePlan />
+                </div>
                 </Layout>
             </main>
         </div>

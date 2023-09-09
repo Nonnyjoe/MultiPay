@@ -4,6 +4,7 @@ import Link from "next/link";
 import Layout from "../../components/Layout";
 import type { NextPage } from "next";
 import { SmartAccountContext } from "~~/context/SmartAccount";
+import { Hero } from "~~/components/Hero";
 
 const Home: NextPage = () => {
   const { address } = useContext(SmartAccountContext);
@@ -30,7 +31,9 @@ const Home: NextPage = () => {
           <link href="/favicon.ico" rel="icon" />
         </Head>
         <main>
-          <Layout></Layout>
+          <Layout>
+            <Hero />
+          </Layout>
         </main>
       </div>
     );
