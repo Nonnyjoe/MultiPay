@@ -17,6 +17,7 @@ const client = new Client({
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
     mainnet,
+    goerli,
     polygon,
     optimism,
     arbitrum,

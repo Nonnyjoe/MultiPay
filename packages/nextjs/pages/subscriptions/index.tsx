@@ -23,6 +23,7 @@ const TodosQuery = gql`
   }
 `;
 
+import { UsersSideNav } from '~~/components/UsersSideNav';
 
 const Home: NextPage = () => {
 
@@ -48,7 +49,9 @@ const Home: NextPage = () => {
             </Head>
             <main>
                 <Layout>
-                    <Subscriptions />
+                    <div className="flex flex-row">
+                        <UsersSideNav />
+                        <Subscriptions />
                     <div>
                     {data.planCreateds.map((plan : any, id: number)=>{
                         return <div key={id}>
@@ -63,6 +66,7 @@ const Home: NextPage = () => {
                         </div>
                     })}
                 </div>
+                    </div>
                 </Layout>
             </main>
         </div>

@@ -18,13 +18,14 @@ const particle = new ParticleAuthModule.ParticleNetwork({
 });
 
 const bundler: IBundler = new Bundler({
-  bundlerUrl: "https://bundler.biconomy.io/api/v2/84531/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44",
-  chainId: ChainId.BASE_GOERLI_TESTNET,
+  bundlerUrl: "https://bundler.biconomy.io/api/v2/5/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44",
+  chainId: 5,
+  // chainId: ChainId.GOERLI,
   entryPointAddress: DEFAULT_ENTRYPOINT_ADDRESS,
 });
 
 const paymaster: IPaymaster = new BiconomyPaymaster({
-  paymasterUrl: "https://paymaster.biconomy.io/api/v1/84531/9DHWydTN6.e6391c84-4efd-42bd-bdd4-c8ee8d7c83af",
+  paymasterUrl: "https://paymaster.biconomy.io/api/v1/5/mJHxTdKMe.5ac0fb1c-be57-4ac3-bbb5-2ee2001ce343",
 });
 
 export const SmartAccountContext = createContext<any>(null);
@@ -51,7 +52,7 @@ export const SmartAccountProvider = ({ children }: { children: ReactNode }) => {
     setProvider(web3Provider);
     const biconomySmartAccountConfig: BiconomySmartAccountConfig = {
       signer: web3Provider.getSigner(),
-      chainId: ChainId.BASE_GOERLI_TESTNET,
+      chainId: ChainId.GOERLI,
       bundler: bundler,
       paymaster: paymaster,
     };

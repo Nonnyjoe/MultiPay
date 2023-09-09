@@ -5,6 +5,7 @@ import { ConnectKitButton } from 'connectkit';
 import { Header } from '../../components/Header';
 import { Subscribe } from '../../components/Subscribe';
 import Layout from '../../components/Layout';
+import { UsersSideNav } from '~~/components/UsersSideNav';
 
 const Home: NextPage = () => {
     return (
@@ -19,7 +20,10 @@ const Home: NextPage = () => {
             </Head>
             <main>
                 <Layout>
-                    <Subscribe />
+                    <div className="flex flex-row">
+                        <UsersSideNav />
+                        <Subscribe />
+                    </div>
                 </Layout>
             </main>
         </div>

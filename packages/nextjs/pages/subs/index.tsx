@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Hero } from "../../components/Hero";
 import Layout from "../../components/Layout";
 import type { NextPage } from "next";
+import { UsersSideNav } from "~~/components/UsersSideNav";
 
 const Home: NextPage = () => {
   return (
@@ -13,7 +14,10 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Layout>
-          <Hero />
+          <div className="flex flex-row">
+              <UsersSideNav />
+              <Hero />
+          </div>
         </Layout>
       </main>
     </div>

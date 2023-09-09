@@ -80,7 +80,7 @@ function MobileNavigation(props: HTMLAttributes<HTMLElement>) {
             <nav className="mt-6">
               <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 ">
                 <MobileNavItem href="/app">Dashboard</MobileNavItem>
-                <MobileNavItem href="/sub">Subscriptions</MobileNavItem>
+                <MobileNavItem href="/subs">Subscriptions</MobileNavItem>
                 <MobileNavItem href="/comp">Company</MobileNavItem>
               </ul>
             </nav>

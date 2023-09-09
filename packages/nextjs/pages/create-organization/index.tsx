@@ -2,6 +2,7 @@ import Head from "next/head";
 import { CreateOrganization } from "../../components/CreateOrganization";
 import Layout from "../../components/Layout";
 import type { NextPage } from "next";
+import { CompanySideNav } from "~~/components/CompanySideNav";
 
 const Home: NextPage = () => {
   return (
@@ -13,7 +14,10 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Layout>
-          <CreateOrganization />
+          <div className="flex flex-row">
+            <CompanySideNav />
+            <CreateOrganization />
+          </div>
         </Layout>
       </main>
     </div>

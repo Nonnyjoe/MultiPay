@@ -5,6 +5,7 @@ import { ConnectKitButton } from 'connectkit';
 import { Header } from '../../components/Header';
 import { ManagePlan } from '../../components/ManagePlan';
 import Layout from '../../components/Layout';
+import { CompanySideNav } from '~~/components/CompanySideNav';
 
 
 const Home: NextPage = () => {
@@ -20,7 +21,10 @@ const Home: NextPage = () => {
             </Head>
             <main>
                 <Layout>
-                    <ManagePlan />
+                    <div className="flex flex-row">
+                        <CompanySideNav />
+                        <ManagePlan />
+                    </div>
                 </Layout>
             </main>
         </div>

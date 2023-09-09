@@ -2,6 +2,25 @@ import Head from "next/head";
 import { Hero } from "../../components/Hero";
 import Layout from "../../components/Layout";
 import type { NextPage } from "next";
+import { CompanySideNav } from "~~/components/CompanySideNav";
+
+import { gql, useQuery } from 'urql';
+
+const TodosQuery = gql`
+{
+    planCreateds {
+      id
+      name
+      planId
+      blockNumber
+      blockTimestamp
+      duration
+      price
+      transactionHash
+    }
+  }
+`;
+    
 
 import { gql, useQuery } from 'urql';
 
@@ -39,7 +58,9 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Layout>
-          <Hero />
+          <div className="flex flex-row">
+            <CompanySideNav />
+            <Hero />
           <div className="w-[1200px] mx-auto mt-[20px]">
             <h1 className="text-[20px] font-[700]">Available Plans</h1>
                     {data.planCreateds.map((plan : any, id: number)=>{
@@ -52,6 +73,7 @@ const Home: NextPage = () => {
                     })}
               <h1 className="text-[20px] font-[700] mt-[20px]">Subcriber lists</h1>
                 </div>
+          </div>
         </Layout>
       </main>
     </div>
