@@ -40,20 +40,17 @@ const Home: NextPage = () => {
       <main>
         <Layout>
           <Hero />
-          <div>
-            <h1>SUBSCRIBERS</h1>
+          <div className="w-[1200px] mx-auto mt-[20px]">
+            <h1 className="text-[20px] font-[700]">Available Plans</h1>
                     {data.planCreateds.map((plan : any, id: number)=>{
                         return <div key={id}>
-                            <h1>{plan.id}</h1>
-                        <h1>{plan.name}</h1>
-                        <h1>{plan.blockNumber}</h1>
-                        <h1>{plan.blockTimestamp}</h1>
-                        <h1>{plan.duration}</h1>
-                        <h1>{plan.price}</h1>
-                        <h1>{plan.transactionHash}</h1>
-                        <h1>{plan.planId}</h1>
+                        <h1>Plan Name: {plan.name}</h1>
+                        <h1>Plan ID: {plan.planId}</h1>
+                        <h1>Plan Duration: {plan.duration} month</h1>
+                        <h1>Plan Price: {plan.price}</h1>
                         </div>
                     })}
+              <h1 className="text-[20px] font-[700] mt-[20px]">Subcriber lists</h1>
                 </div>
         </Layout>
       </main>
