@@ -2,19 +2,16 @@ import { useState } from "react";
 import { Container } from "./Container";
 import { FadeIn } from "./FadeIn";
 import { ethers } from "ethers";
+import { FactoryAddr } from "~~/utils/FactoryAddress";
+import FactoryAbi from "../utils/FactoryAbi.json";
 
 export const CreateOrganization = () => {
 
     const [organizationName, setOrganizationName] = useState("");
     const [organizationSymbol, setOrganizationSymbol] = useState("");
 
-    // TODO: Remove
-    const companyAddress = "";
-    const companyAbi = "";
-    const provider = "";
 
-
-    // const contract = new ethers.Contract(companyAddress, companyAbi, provider);
+    const contract = new ethers.Contract(FactoryAddr(), FactoryAbi, provider);
 
 
     const createOrganization = (e: any) => {
