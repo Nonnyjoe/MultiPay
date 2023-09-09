@@ -1,4 +1,3 @@
-
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
@@ -10,7 +9,9 @@ contract FactoryCon {
     uint256 public totalCompaniesID;
     address[] public companyAddresses;
     address public admin;
-    address tokenForReceipt;
+    address public tokenForReceipt;
+    address public tokenForPayment;
+    address public factoryContract;
     //owner => company ID
     mapping (address => address) public ownerToCompany;
     //company address => companyID
@@ -27,19 +28,21 @@ contract FactoryCon {
 
 
 
-    constructor( address _tokenForReceipt ) {
+    constructor( address _tokenForReceipt, address _tokenForPayment ) {
         admin = msg.sender;
         tokenForReceipt = _tokenForReceipt;
+        tokenForPayment = _tokenForPayment;
     }
 
-    function createCompany(string memory _name, string memory _symbol) public  {
+    function createCompany(string memory _name, string memory _symbol) public returns (address) {
         totalCompaniesID++;
-        CompanyContract _companyCon = new CompanyContract(_name, _symbol, totalCompaniesID, msg.sender, address(this), tokenForReceipt);
+        CompanyContract _companyCon = new CompanyContract(_name, _symbol, totalCompaniesID, msg.sender, address(this), tokenForReceipt, tokenForPayment);
         companyAddresses.push(address(_companyCon));
         ownerToCompany[msg.sender] = address(_companyCon);
         Identity[address(_companyCon)] = totalCompaniesID;
         contractAccountStatus[address(_companyCon)] = true;
         emit companyCreated(_name, _symbol, address(_companyCon));
+        return address(_companyCon);
     }
 
 
@@ -95,3 +98,5 @@ contract FactoryCon {
         return AllSubscriptionContracts[_caller];
     } 
 }
+
+

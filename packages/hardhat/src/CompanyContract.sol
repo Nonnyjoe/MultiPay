@@ -7,7 +7,7 @@ import "../src/interfaces/IFACTORY.sol";
 
 contract CompanyContract {
     // TODO: Change address zero to USDC address and NFT contract
-    address public tokenForPayment = address(0);
+    address public tokenForPayment;
     address public tokenForReceipt;
     address public factoryContract;
 
@@ -59,13 +59,14 @@ contract CompanyContract {
     }
 
 
-    constructor(string memory _name, string memory _symbol, uint256 _nftId, address _admin, address _factoryContract, address _tokenForReceipt){
+    constructor(string memory _name, string memory _symbol, uint256 _nftId, address _admin, address _factoryContract, address _tokenForReceipt, address _tokenForPayment){
         name = _name;
         symbol = _symbol;
         nftId = _nftId;
         admin = _admin;
         factoryContract = _factoryContract;
         tokenForReceipt = _tokenForReceipt;
+        tokenForPayment = _tokenForPayment;
     }
 
     function createPlan(string memory _planName, uint _planPrice, uint256 _planDuration) public onlyOwner {

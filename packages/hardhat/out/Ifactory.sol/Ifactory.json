@@ -1,0 +1,244 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "contractAccount",
+          "type": "address"
+        }
+      ],
+      "name": "AccountcontractState",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "AccountcontractState(address)": "d60dee15"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"contractAccount\",\"type\":\"address\"}],\"name\":\"AccountcontractState\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/Ifactory.sol\":\"Ifactory\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@openzeppelin/=node_modules/@openzeppelin/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/\",\":eth-gas-reporter/=node_modules/eth-gas-reporter/\",\":forge-std/=lib/forge-std/src/\",\":hardhat-deploy/=node_modules/hardhat-deploy/\",\":hardhat/=node_modules/hardhat/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\",\":openzeppelin/=lib/openzeppelin-contracts/contracts/\"]},\"sources\":{\"src/Ifactory.sol\":{\"keccak256\":\"0x773d81997d5c40fa144f5fd8afe0b6e275a2d30db2479f62678066aba3b85da5\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://98db3d2353b04f31e8654310280e89e3743fa7dca6f0db37b664da5f763071ba\",\"dweb:/ipfs/QmYJMGJid949uZ7cm7GBJGatcc8UmHkZDc8W1HzMfPBxzt\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.21+commit.d9974bed"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "contractAccount",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "AccountcontractState",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ]
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        "@openzeppelin/=node_modules/@openzeppelin/",
+        "ds-test/=lib/forge-std/lib/ds-test/src/",
+        "erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/",
+        "eth-gas-reporter/=node_modules/eth-gas-reporter/",
+        "forge-std/=lib/forge-std/src/",
+        "hardhat-deploy/=node_modules/hardhat-deploy/",
+        "hardhat/=node_modules/hardhat/",
+        "openzeppelin-contracts/=lib/openzeppelin-contracts/",
+        "openzeppelin/=lib/openzeppelin-contracts/contracts/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "src/Ifactory.sol": "Ifactory"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "src/Ifactory.sol": {
+        "keccak256": "0x773d81997d5c40fa144f5fd8afe0b6e275a2d30db2479f62678066aba3b85da5",
+        "urls": [
+          "bzz-raw://98db3d2353b04f31e8654310280e89e3743fa7dca6f0db37b664da5f763071ba",
+          "dweb:/ipfs/QmYJMGJid949uZ7cm7GBJGatcc8UmHkZDc8W1HzMfPBxzt"
+        ],
+        "license": "UNLICENSED"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "src/Ifactory.sol",
+    "id": 28166,
+    "exportedSymbols": {
+      "Ifactory": [
+        28165
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "39:135:29",
+    "nodes": [
+      {
+        "id": 28157,
+        "nodeType": "PragmaDirective",
+        "src": "39:24:29",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".13"
+        ]
+      },
+      {
+        "id": 28165,
+        "nodeType": "ContractDefinition",
+        "src": "64:110:29",
+        "nodes": [
+          {
+            "id": 28164,
+            "nodeType": "FunctionDefinition",
+            "src": "89:83:29",
+            "nodes": [],
+            "functionSelector": "d60dee15",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "AccountcontractState",
+            "nameLocation": "98:20:29",
+            "parameters": {
+              "id": 28160,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 28159,
+                  "mutability": "mutable",
+                  "name": "contractAccount",
+                  "nameLocation": "127:15:29",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 28164,
+                  "src": "119:23:29",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 28158,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "119:7:29",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "118:25:29"
+            },
+            "returnParameters": {
+              "id": 28163,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 28162,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 28164,
+                  "src": "166:4:29",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 28161,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "166:4:29",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "165:6:29"
+            },
+            "scope": 28165,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "Ifactory",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          28165
+        ],
+        "name": "Ifactory",
+        "nameLocation": "74:8:29",
+        "scope": 28166,
+        "usedErrors": [],
+        "usedEvents": []
+      }
+    ],
+    "license": "UNLICENSED"
+  },
+  "id": 29
+}
