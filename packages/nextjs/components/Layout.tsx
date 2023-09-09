@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { Header } from "./Header";
+import { SideNav } from "./SideNav";
 
 const Layout = ({ children }: any) => {
   return (
@@ -11,6 +12,7 @@ const Layout = ({ children }: any) => {
       </Head>
       <main>
         <Header />
+        <SideNav />
         {children}
       </main>
     </div>
