@@ -23,6 +23,7 @@ contract CompanyContract {
     mapping (address => mapping (uint256 => uint256)) public subscriptionIndex4User;
     mapping (address => mapping(uint256 => uint256)) trackUsersubscription;
     mapping (uint256 => address[]) public TrackDayToUsers;
+    mapping (uint256 => UserDetails[]) public subscribersData;
     uint trackedPlaniDs;
     mapping (uint => bool) public activattionStatus;
     
@@ -33,8 +34,8 @@ contract CompanyContract {
         bool planActive;
         uint256 planDuration;
         uint256 totalSubscribers;
-        UserDetails[] subscribersData;
     }
+
 
     struct UserDetails {
         address userAddress;
@@ -70,12 +71,15 @@ contract CompanyContract {
     }
 
     function createPlan(string memory _planName, uint _planPrice, uint256 _planDuration) public onlyOwner {
-        PlansDetails storage _newPlan = availiablePlans[trackedPlaniDs];
-        _newPlan.planName = _planName;
-        _newPlan.price = _planPrice;      
-        _newPlan.planID = trackedPlaniDs;      
-        _newPlan.planDuration = _planDuration;      
-        availiablePlans.push(_newPlan);
+   
+        availiablePlans.push(PlansDetails({
+            planName: _planName,
+            price: _planPrice,
+            planID: trackedPlaniDs,
+            planDuration: _planDuration,
+            planActive: false,
+            totalSubscribers: 0
+        }));
         emit planCreated(_planName, _planPrice, _planDuration, trackedPlaniDs);
         trackedPlaniDs++;
     }
@@ -103,15 +107,15 @@ contract CompanyContract {
         UserDetails memory _userInfo =  UserDetails (msg.sender, _userEmail, block.timestamp, userSubEnds, _autoSubscribe, true);
         subscriptionIndex4User[msg.sender][_planId] = userToSubscriptions[msg.sender].length;
         userToSubscriptions[msg.sender].push(_planId);
-        trackUsersubscription[msg.sender][_planId] = _planToSub.subscribersData.length;
-        _planToSub.subscribersData.push(_userInfo);
+        trackUsersubscription[msg.sender][_planId] = subscribersData[_planId].length;
+        subscribersData[_planId].push(_userInfo);
         _planToSub.totalSubscribers++;
-        TrackDayToUsers[getDayFromTimestamp(block.timestamp)].push(msg.sender);
-        userId = _planToSub.subscribersData.length;
+        TrackDayToUsers[getDayFromTimestamp(1694234614)].push(msg.sender);
+        emit userSubscribed(_userEmail, _autoSubscribe, msg.sender, _planToSub.planName);
+        userId = subscribersData[_planId].length;
         IERC20(tokenForPayment).transferFrom(msg.sender, address(this), _planToSub.price);
         IERC1155(tokenForReceipt).MintSubScription(msg.sender, _planId, 1);
         IFACTORY(factoryContract).UpdateSubscriptionContracts(msg.sender);
-        emit userSubscribed(_userEmail, _autoSubscribe, msg.sender, _planToSub.planName);
     }
 
     function chainlinkDailyCall() public {
@@ -121,9 +125,9 @@ contract CompanyContract {
             uint256[] memory subscriptions = userToSubscriptions[AutoRenewals[i]];
             for (uint j; j < subscriptions.length; j++) {
                 uint subIndex = trackUsersubscription[AutoRenewals[i]][subscriptions[j]];
-                if(availiablePlans[subscriptions[j]].subscribersData[subIndex].autoSubscribe = true 
-                && getDayFromTimestamp(availiablePlans[subscriptions[j]].subscribersData[subIndex].timeOfSubscription) == getDayFromTimestamp(block.timestamp) && 
-                availiablePlans[subscriptions[j]].subscribersData[subIndex].subscriptionStatus == true
+                if(subscribersData[subscriptions[j]][subIndex].autoSubscribe = true 
+                && getDayFromTimestamp(subscribersData[subscriptions[j]][subIndex].timeOfSubscription) == getDayFromTimestamp(block.timestamp) && 
+                subscribersData[subscriptions[j]][subIndex].subscriptionStatus == true
                 ) {
                     autoRenew(subscriptions[j], AutoRenewals[i]);
                 }
@@ -142,14 +146,14 @@ contract CompanyContract {
         uint256 userBallance = IERC20(tokenForPayment).balanceOf(_user);
         if ((userBallance / 1e18) >= availiablePlans[_planId].price) {
             IERC20(tokenForPayment).transferFrom(msg.sender, address(this), availiablePlans[_planId].price);
-            availiablePlans[_planId].subscribersData[userIndex].timeOfSubscription = block.timestamp;
-            availiablePlans[_planId].subscribersData[userIndex].subscriptionEnds = userSubEnds;   
+            subscribersData[_planId][userIndex].timeOfSubscription = block.timestamp;
+            subscribersData[_planId][userIndex].subscriptionEnds = userSubEnds;   
             emit userRenewed(_planId, _user, true, block.timestamp, userSubEnds);        
             return true;
         } else {
-            availiablePlans[_planId].subscribersData[userIndex].subscriptionStatus = false;
+            subscribersData[_planId][userIndex].subscriptionStatus = false;
             // emit AutorenewalFailed
-            emit userRenewed(_planId, _user, false, availiablePlans[_planId].subscribersData[userIndex].timeOfSubscription , 0);
+            emit userRenewed(_planId, _user, false, subscribersData[_planId][userIndex].timeOfSubscription , 0);
             return false;
         }
 
@@ -158,7 +162,7 @@ contract CompanyContract {
     function unSubscribe(uint256 _planId, address _user) external returns (bool success) {
         require(msg.sender == _user, "NOT AUTORIZED");
         uint256 userIndex = trackUsersubscription[_user][_planId];
-        availiablePlans[_planId].subscribersData[userIndex].subscriptionStatus = false;
+        subscribersData[_planId][userIndex].subscriptionStatus = false;
         if (userToSubscriptions[msg.sender].length > 1) {
             uint subindex = subscriptionIndex4User[msg.sender][_planId];
             uint lastIndex = userToSubscriptions[msg.sender].length - 1;
