@@ -40,26 +40,27 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Layout>
-          <div className="flex flex-row">
-            <CompanySideNav />
-            <Hero />
+          <div className=" m-0 px-8 flex flex-col">
+            <div className="flex flex-row">
+              <CompanySideNav />
+              <Hero />
+            </div>
+            <div>
+              <h1>SUBSCRIBERS</h1>
+                {data.planCreateds.map((plan : any, id: number)=>{
+                    return <div key={id}>
+                        <h1>{plan.id}</h1>
+                    <h1>{plan.name}</h1>
+                    <h1>{plan.blockNumber}</h1>
+                    <h1>{plan.blockTimestamp}</h1>
+                    <h1>{plan.duration}</h1>
+                    <h1>{plan.price}</h1>
+                    <h1>{plan.transactionHash}</h1>
+                    <h1>{plan.planId}</h1>
+                    </div>
+                })}
+            </div>
           </div>
-          <Hero />
-          <div>
-            <h1>SUBSCRIBERS</h1>
-                    {data.planCreateds.map((plan : any, id: number)=>{
-                        return <div key={id}>
-                            <h1>{plan.id}</h1>
-                        <h1>{plan.name}</h1>
-                        <h1>{plan.blockNumber}</h1>
-                        <h1>{plan.blockTimestamp}</h1>
-                        <h1>{plan.duration}</h1>
-                        <h1>{plan.price}</h1>
-                        <h1>{plan.transactionHash}</h1>
-                        <h1>{plan.planId}</h1>
-                        </div>
-                    })}
-                </div>
         </Layout>
       </main>
     </div>
