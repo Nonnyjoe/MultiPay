@@ -1,0 +1,68 @@
+type companyCreated @entity(immutable: true) {
+  id: Bytes!
+  name: String! # string
+  symbol: String! # string
+  companyContract: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type contractPaused @entity(immutable: true) {
+  id: Bytes!
+  paused: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+type planActive @entity(immutable: true) {
+  id: Bytes!
+  planId: BigInt! # uint256
+  planActive: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type planCreated @entity(immutable: true) {
+  id: Bytes!
+  name: String! # string
+  price: BigInt! # uint256
+  duration: BigInt! # uint256
+  planId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type subscriptionsUpdated @entity(immutable: true) {
+  id: Bytes!
+  time: BigInt! # uint256
+  totalSubsUpdated: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type userRenewed @entity(immutable: true) {
+  id: Bytes!
+  planId: BigInt! # uint256
+  userAddress: Bytes! # address
+  renewed: Boolean! # bool
+  startTime: BigInt! # uint256
+  endTime: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type userSubscribed @entity(immutable: true) {
+  id: Bytes!
+  email: String! # string
+  autoSubscribe: Boolean! # bool
+  userAddress: Bytes! # address
+  planName: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
