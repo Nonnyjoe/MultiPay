@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { SmartAccountContext } from "~~/context/SmartAccount";
 
 export const AbstractButton = () => {
-  //   const { smartAccount, provider, setSmartAccount, setProvider, connect, address, loading } = useContext(SmartAccountContext);
   const { connect, address } = useContext(SmartAccountContext);
 
   if (address) {
