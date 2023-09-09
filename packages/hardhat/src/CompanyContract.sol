@@ -212,6 +212,11 @@ contract CompanyContract {
         }
     }
 
+    function adminWithdrawal(uint _amount) external {
+        require(msg.sender == admin, "NOT ADMIN");
+
+        IERC20(tokenForPayment).transfer(admin, _amount);
+    }
     
     function getDaysInMonth(uint256 month, uint256 year) public pure returns (uint256) {
         if (month == 2) {
