@@ -1511,8 +1511,8 @@
       }
     },
     "script/ecosysDeployment.s.sol": {
-      "lastModificationDate": 1694229418163,
-      "contentHash": "f893748bf0ca4c387bba805f3a141909",
+      "lastModificationDate": 1694251171289,
+      "contentHash": "d9b6b0e4db3adc2f5a87000ce5ec121b",
       "sourceName": "script/ecosysDeployment.s.sol",
       "solcConfig": {
         "settings": {
@@ -1586,8 +1586,8 @@
       }
     },
     "src/CompanyContract.sol": {
-      "lastModificationDate": 1694234657733,
-      "contentHash": "d6eb80196e227386c8c2188b079d47ea",
+      "lastModificationDate": 1694250943773,
+      "contentHash": "dde53ae2d2cc5ca547ec4279af7dedbf",
       "sourceName": "src/CompanyContract.sol",
       "solcConfig": {
         "settings": {
@@ -1682,8 +1682,8 @@
       }
     },
     "src/FactoryContract.sol": {
-      "lastModificationDate": 1694235236016,
-      "contentHash": "5ca53b25880dc6997fc069fed419cb20",
+      "lastModificationDate": 1694250143583,
+      "contentHash": "5f36e8f6c8d064c05b88d4e7314295a4",
       "sourceName": "src/FactoryContract.sol",
       "solcConfig": {
         "settings": {
@@ -1898,8 +1898,8 @@
       }
     },
     "src/interfaces/IERC20.sol": {
-      "lastModificationDate": 1694203611759,
-      "contentHash": "40e031cb1ca0a6daf9645a05de15dfc3",
+      "lastModificationDate": 1694237012656,
+      "contentHash": "3cfeecbb6c79f8ed7e5ca92136e6d7cc",
       "sourceName": "src/interfaces/IERC20.sol",
       "solcConfig": {
         "settings": {
@@ -2021,8 +2021,8 @@
       }
     },
     "test/foundry/integrationTest.t.sol": {
-      "lastModificationDate": 1694236053746,
-      "contentHash": "6cbe092cdc9e0f90f555655621d3144c",
+      "lastModificationDate": 1694251203109,
+      "contentHash": "783bcf261ab6cecfc006439388eb3fc0",
       "sourceName": "test/foundry/integrationTest.t.sol",
       "solcConfig": {
         "settings": {

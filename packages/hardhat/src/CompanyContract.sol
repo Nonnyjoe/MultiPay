@@ -98,24 +98,24 @@ contract CompanyContract {
         return true;
     }
 
-    function subscribe(string memory _userEmail, bool _autoSubscribe, uint256 _planId) public returns (uint256 userId){
+    function subscribe(string memory _userEmail, bool _autoSubscribe, uint256 _planId, address _user) public returns (uint256 userId){
         PlansDetails storage _planToSub = availiablePlans[_planId];
 
         require(_planToSub.planActive, "Plan deactivated");
         uint256 planDuration = _planToSub.planDuration;
         uint256 userSubEnds = block.timestamp + (planDuration * oneMonthTimestamp);
-        UserDetails memory _userInfo =  UserDetails (msg.sender, _userEmail, block.timestamp, userSubEnds, _autoSubscribe, true);
-        subscriptionIndex4User[msg.sender][_planId] = userToSubscriptions[msg.sender].length;
-        userToSubscriptions[msg.sender].push(_planId);
-        trackUsersubscription[msg.sender][_planId] = subscribersData[_planId].length;
+        UserDetails memory _userInfo =  UserDetails (_user, _userEmail, block.timestamp, userSubEnds, _autoSubscribe, true);
+        subscriptionIndex4User[_user][_planId] = userToSubscriptions[_user].length;
+        userToSubscriptions[_user].push(_planId);
+        trackUsersubscription[_user][_planId] = subscribersData[_planId].length;
         subscribersData[_planId].push(_userInfo);
         _planToSub.totalSubscribers++;
-        TrackDayToUsers[getDayFromTimestamp(1694234614)].push(msg.sender);
-        emit userSubscribed(_userEmail, _autoSubscribe, msg.sender, _planToSub.planName);
+        TrackDayToUsers[getDayFromTimestamp(block.timestamp)].push(_user);
         userId = subscribersData[_planId].length;
-        IERC20(tokenForPayment).transferFrom(msg.sender, address(this), _planToSub.price);
-        IERC1155(tokenForReceipt).MintSubScription(msg.sender, _planId, 1);
-        IFACTORY(factoryContract).UpdateSubscriptionContracts(msg.sender);
+        IERC20(tokenForPayment).transferFrom(_user, address(this), _planToSub.price);
+        IERC1155(tokenForReceipt).MintSubScription(_user, _planId, 1);
+        IFACTORY(factoryContract).UpdateSubscriptionContracts(_user);
+        emit userSubscribed(_userEmail, _autoSubscribe, _user, _planToSub.planName);
     }
 
     function chainlinkDailyCall() public {
@@ -145,7 +145,7 @@ contract CompanyContract {
 
         uint256 userBallance = IERC20(tokenForPayment).balanceOf(_user);
         if ((userBallance / 1e18) >= availiablePlans[_planId].price) {
-            IERC20(tokenForPayment).transferFrom(msg.sender, address(this), availiablePlans[_planId].price);
+            IERC20(tokenForPayment).transferFrom(_user, address(this), availiablePlans[_planId].price);
             subscribersData[_planId][userIndex].timeOfSubscription = block.timestamp;
             subscribersData[_planId][userIndex].subscriptionEnds = userSubEnds;   
             emit userRenewed(_planId, _user, true, block.timestamp, userSubEnds);        
@@ -160,19 +160,19 @@ contract CompanyContract {
     }
 
     function unSubscribe(uint256 _planId, address _user) external returns (bool success) {
-        require(msg.sender == _user, "NOT AUTORIZED");
+        // require(msg.sender == _user, "NOT AUTORIZED");
         uint256 userIndex = trackUsersubscription[_user][_planId];
         subscribersData[_planId][userIndex].subscriptionStatus = false;
-        if (userToSubscriptions[msg.sender].length > 1) {
-            uint subindex = subscriptionIndex4User[msg.sender][_planId];
-            uint lastIndex = userToSubscriptions[msg.sender].length - 1;
-            uint lastID = userToSubscriptions[msg.sender][lastIndex];
-            userToSubscriptions[msg.sender][subindex] = userToSubscriptions[msg.sender][lastIndex];
-            userToSubscriptions[msg.sender].pop();
+        if (userToSubscriptions[_user].length > 1) {
+            uint subindex = subscriptionIndex4User[_user][_planId];
+            uint lastIndex = userToSubscriptions[_user].length - 1;
+            uint lastID = userToSubscriptions[_user][lastIndex];
+            userToSubscriptions[_user][subindex] = userToSubscriptions[_user][lastIndex];
+            userToSubscriptions[_user].pop();
             // subscriptionIndex4User[msg.sender][_planId] = 0;
-            subscriptionIndex4User[msg.sender][lastID] = subscriptionIndex4User[msg.sender][_planId];
+            subscriptionIndex4User[_user][lastID] = subscriptionIndex4User[_user][_planId];
         } else {
-            userToSubscriptions[msg.sender].pop();
+            userToSubscriptions[_user].pop();
             IFACTORY(factoryContract).RemoveSubscribedContract(_user);
         }
         return true;
@@ -212,8 +212,8 @@ contract CompanyContract {
         }
     }
 
-    function adminWithdrawal(uint _amount) external {
-        require(msg.sender == admin, "NOT ADMIN");
+    function adminWithdrawal(uint _amount, address _admin) external {
+        require(_admin == admin, "NOT ADMIN");
 
         IERC20(tokenForPayment).transfer(admin, _amount);
     }

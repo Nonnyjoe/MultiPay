@@ -20,7 +20,7 @@ contract ecosysDeployment is Script {
         paymentToken = new MyToken();
         receiptToken = new ERC1155Receipt('');
         factory = new FactoryCon(address(receiptToken), address(paymentToken));   
-        child = factory.createCompany("Spotify", "SPTY");
+        child = factory.createCompany("Spotify", "SPTY", 0xA771E1625DD4FAa2Ff0a41FA119Eb9644c9A46C8);
         // bytes memory factory = abi.encode(address(0), address(0));   
         // console1.log(factory);
     }

@@ -36,11 +36,11 @@ contract FactoryCon {
         IERC1155(_tokenForReceipt).initializeFactory();
     }
 
-    function createCompany(string memory _name, string memory _symbol) public returns (address) {
+    function createCompany(string memory _name, string memory _symbol, address _admin) public returns (address) {
         totalCompaniesID++;
-        CompanyContract _companyCon = new CompanyContract(_name, _symbol, totalCompaniesID, msg.sender, address(this), tokenForReceipt, tokenForPayment);
+        CompanyContract _companyCon = new CompanyContract(_name, _symbol, totalCompaniesID, _admin, address(this), tokenForReceipt, tokenForPayment);
         companyAddresses.push(address(_companyCon));
-        ownerToCompany[msg.sender] = address(_companyCon);
+        ownerToCompany[_admin] = address(_companyCon);
         Identity[address(_companyCon)] = totalCompaniesID;
         contractAccountStatus[address(_companyCon)] = true;
         emit companyCreated(_name, _symbol, address(_companyCon));
