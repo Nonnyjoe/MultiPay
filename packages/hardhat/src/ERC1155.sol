@@ -13,6 +13,10 @@ contract ERC1155Receipt is ERC1155 {
         owner = msg.sender;
     }
 
+    function initializeFactory () external {
+        factoryAddress = msg.sender;
+    }
+
     function MintSubScription(address to, uint id, uint amount) external{
         //this should be payable with erc20, while we pay for gas from gas tank set up alongside account abstraction.
         // gas + subscription fee should be deducted from erc20
