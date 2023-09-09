@@ -1,97 +1,22 @@
-import { ParticleAuthModule, ParticleProvider } from '@biconomy/particle-auth';
-import { Bundler, IBundler } from '@biconomy/bundler';
-import { ChainId } from '@biconomy/core-types';
-import { BiconomySmartAccount, BiconomySmartAccountConfig, DEFAULT_ENTRYPOINT_ADDRESS } from '@biconomy/account';
-import { BiconomyPaymaster, IPaymaster } from '@biconomy/paymaster';
-import { useEffect, useState } from 'react';
-import { ethers } from 'ethers';
-import { Address } from 'viem';
-import { Button } from './Button';
-import clsx from 'clsx';
-
-
-const particle = new ParticleAuthModule.ParticleNetwork({
-    projectId: "e592ca9c-cfcf-47fc-b35d-1d0061cc619b",
-    clientKey: "cA7ffn67I4vIam0723WnkHnkizRSQ3L34YXPsPyp",
-    appId: "5ff5b3dc-1f31-494c-9dbb-b01d48ac82d8",
-    wallet: {
-        displayWalletEntry: true,
-        defaultWalletEntryPosition: ParticleAuthModule.WalletEntryPosition.BR,
-    },
-});
-
-
-const bundler: IBundler = new Bundler({
-    bundlerUrl: "https://bundler.biconomy.io/api/v2/84531/nJPK7B3ru.dd7f7861-190d-41bd-af80-6877f74b8f44",
-    chainId: ChainId.BASE_GOERLI_TESTNET,
-    entryPointAddress: DEFAULT_ENTRYPOINT_ADDRESS,
-});
-
-const paymaster: IPaymaster = new BiconomyPaymaster({
-    paymasterUrl: "https://paymaster.biconomy.io/api/v1/84531/9DHWydTN6.e6391c84-4efd-42bd-bdd4-c8ee8d7c83af"
-});
+import { useContext } from "react";
+import { Button } from "./Button";
+import clsx from "clsx";
+import { SmartAccountContext } from "~~/context/SmartAccount";
 
 export const AbstractButton = () => {
-    const [address, setAddress] = useState<Address | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [smartAccount, setSmartAccount] =
-        useState<BiconomySmartAccount | null>(null);
-    const [provider, setProvider] = useState<ethers.providers.Provider | null>(
-        null
+  const { connect, address } = useContext(SmartAccountContext);
+
+  if (address) {
+    return (
+      <Button className={clsx("bg-slate-800 text-white p-2 rounded-lg")}>
+        {address.slice(0, 6)}...{address.slice(-5, -1)}
+      </Button>
     );
-
-    // set user data if logged in
-    useEffect(() => {
-        (async () => {
-            const userInfo = await particle.auth.isLoginAsync();
-            if (userInfo) {
-                await setDetails();
-            }
-        })();
-    }, []);
-
-    const setDetails = async () => {
-        const particleProvider = new ParticleProvider(particle.auth);
-        const web3Provider = new ethers.providers.Web3Provider(
-            particleProvider,
-            "any"
-        );
-        setProvider(web3Provider);
-        const biconomySmartAccountConfig: BiconomySmartAccountConfig = {
-            signer: web3Provider.getSigner(),
-            chainId: ChainId.BASE_GOERLI_TESTNET,
-            bundler: bundler,
-            paymaster: paymaster,
-        };
-        let biconomySmartAccount = new BiconomySmartAccount(
-            biconomySmartAccountConfig
-        );
-        biconomySmartAccount = await biconomySmartAccount.init();
-        setAddress(await biconomySmartAccount.getSmartAccountAddress() as Address);
-        setSmartAccount(biconomySmartAccount);
-    };
-
-    const connect = async () => {
-        try {
-            setLoading(true);
-            const userInfo = await particle.auth.login();
-            console.log("Logged in user:", userInfo);
-            await setDetails();
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    if (address) {
-        return (
-            <Button className={clsx("bg-slate-800 text-white p-2 rounded-lg")}>
-                {address.slice(0, 6)}...{address.slice(-5, -1)}
-            </Button>
-        );
-    } else {
-        return (
-            <Button variant='outline' type="submit" onClick={connect}>Login with E-mail</Button>
-        );
-    }
+  } else {
+    return (
+      <Button variant="outline" type="submit" onClick={connect}>
+        Login with E-mail
+      </Button>
+    );
+  }
 };
