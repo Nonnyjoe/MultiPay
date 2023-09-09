@@ -3,7 +3,33 @@ import { Hero } from "../../components/Hero";
 import Layout from "../../components/Layout";
 import type { NextPage } from "next";
 
+import { gql, useQuery } from 'urql';
+
+const TodosQuery = gql`
+{
+    planCreateds {
+      id
+      name
+      planId
+      blockNumber
+      blockTimestamp
+      duration
+      price
+      transactionHash
+    }
+  }
+`;
+    
+
 const Home: NextPage = () => {
+  const [result, reexecuteQuery] = useQuery({
+    query: TodosQuery,
+  });
+
+  const { data, fetching, error } = result;
+  console.log(data);
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
   return (
     <div>
       <Head>
@@ -14,6 +40,21 @@ const Home: NextPage = () => {
       <main>
         <Layout>
           <Hero />
+          <div>
+            <h1>SUBSCRIBERS</h1>
+                    {data.planCreateds.map((plan : any, id: number)=>{
+                        return <div key={id}>
+                            <h1>{plan.id}</h1>
+                        <h1>{plan.name}</h1>
+                        <h1>{plan.blockNumber}</h1>
+                        <h1>{plan.blockTimestamp}</h1>
+                        <h1>{plan.duration}</h1>
+                        <h1>{plan.price}</h1>
+                        <h1>{plan.transactionHash}</h1>
+                        <h1>{plan.planId}</h1>
+                        </div>
+                    })}
+                </div>
         </Layout>
       </main>
     </div>

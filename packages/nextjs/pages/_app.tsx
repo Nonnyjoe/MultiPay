@@ -7,7 +7,13 @@ import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import { arbitrum, base, baseGoerli, goerli, mainnet, optimism, polygon, zora } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { SmartAccountProvider } from "~~/context/SmartAccount";
+import { Client, Provider, cacheExchange, fetchExchange } from 'urql';
 
+
+const client = new Client({
+  url: 'https://api.studio.thegraph.com/query/52398/multipay/version/latest',
+  exchanges: [cacheExchange, fetchExchange],
+});
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
     mainnet,
@@ -56,9 +62,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WagmiConfig config={wagmiConfig}>
       <ConnectKitProvider>
         <RainbowKitProvider chains={chains}>
+        <Provider value={client}>
           <SmartAccountProvider>
             <Component {...pageProps} />
           </SmartAccountProvider>
+        </Provider>
         </RainbowKitProvider>
       </ConnectKitProvider>
     </WagmiConfig>

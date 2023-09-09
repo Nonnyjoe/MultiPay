@@ -8,9 +8,6 @@ export const Subscriptions = () => {
                 <h1 className="font-display text-5xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-7xl">
                     Here are your availiable subscriptions
                 </h1>
-                <div>
-                    <p>GOTV</p>
-                </div>
             </FadeIn>
         </Container>
     )
