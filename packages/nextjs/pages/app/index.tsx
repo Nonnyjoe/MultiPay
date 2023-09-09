@@ -1,7 +1,5 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { ConnectKitButton } from 'connectkit';
 import { Hero } from '../../components/Hero';
 import { Header } from '../../components/Header';
 import Layout from '../../components/Layout';

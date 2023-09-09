@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 node_modules
 
 # dependencies, yarn, etc
@@ -11,3 +13,4 @@ node_modules
 .eslintcache
 .vscode/**
 .DS_Store
+>>>>>>> c426fdde7151f01ca1ace07512b0d227d305c267

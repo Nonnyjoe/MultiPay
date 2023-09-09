@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { Address } from 'viem';
 import { Button } from './Button';
+import clsx from 'clsx';
 
 
 const particle = new ParticleAuthModule.ParticleNetwork({
@@ -66,7 +67,7 @@ export const AbstractButton = () => {
             biconomySmartAccountConfig
         );
         biconomySmartAccount = await biconomySmartAccount.init();
-        setAddress(await biconomySmartAccount.getSmartAccountAddress() as Address) ;
+        setAddress(await biconomySmartAccount.getSmartAccountAddress() as Address);
         setSmartAccount(biconomySmartAccount);
     };
 
@@ -82,10 +83,15 @@ export const AbstractButton = () => {
         }
     };
 
-    return(
-        <div>
-            {address && <p>Smart Account: {address.slice(0, 6)}...{address.slice(-5, -1)}</p>}
-            {address == null && <Button variant='outline' type="submit" onClick={connect}>Login with E-mail</Button> }
-        </div>
-    )
-}
+    if (address) {
+        return (
+            <Button className={clsx("bg-slate-800 text-white p-2 rounded-lg")}>
+                {address.slice(0, 6)}...{address.slice(-5, -1)}
+            </Button>
+        );
+    } else {
+        return (
+            <Button variant='outline' type="submit" onClick={connect}>Login with E-mail</Button>
+        );
+    }
+};
