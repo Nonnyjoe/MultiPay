@@ -11,7 +11,7 @@ export const CreateOrganization = () => {
     const [organizationSymbol, setOrganizationSymbol] = useState("");
 
 
-    const contract = new ethers.Contract(FactoryAddr(), FactoryAbi, provider);
+    // const contract = new ethers.Contract(FactoryAddr(), FactoryAbi, provider);
 
 
     const createOrganization = (e: any) => {
