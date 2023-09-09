@@ -1,20 +1,12 @@
-import '../styles/globals.css';
-import '@rainbow-me/rainbowkit/styles.css';
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import type { AppProps } from 'next/app';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import {
-  arbitrum,
-  goerli,
-  mainnet,
-  optimism,
-  polygon,
-  base,
-  zora,
-  baseGoerli
-} from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
-import { ConnectKitProvider, ConnectKitButton, getDefaultConfig } from "connectkit";
+import type { AppProps } from "next/app";
+import "../styles/globals.css";
+import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
+import "@rainbow-me/rainbowkit/styles.css";
+import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+import { WagmiConfig, configureChains, createConfig } from "wagmi";
+import { arbitrum, base, baseGoerli, goerli, mainnet, optimism, polygon, zora } from "wagmi/chains";
+import { publicProvider } from "wagmi/providers/public";
+import { SmartAccountProvider } from "~~/context/SmartAccount";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
@@ -25,14 +17,14 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
     base,
     zora,
     baseGoerli,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
+    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [goerli] : []),
   ],
-  [publicProvider()]
+  [publicProvider()],
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'RainbowKit App',
-  projectId: 'YOUR_PROJECT_ID',
+  appName: "RainbowKit App",
+  projectId: "YOUR_PROJECT_ID",
   chains,
 });
 
@@ -62,11 +54,13 @@ const config = createConfig(
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
-        <ConnectKitProvider>
-          <RainbowKitProvider chains={chains}>
+      <ConnectKitProvider>
+        <RainbowKitProvider chains={chains}>
+          <SmartAccountProvider>
             <Component {...pageProps} />
-          </RainbowKitProvider>
-        </ConnectKitProvider>
+          </SmartAccountProvider>
+        </RainbowKitProvider>
+      </ConnectKitProvider>
     </WagmiConfig>
   );
 }
