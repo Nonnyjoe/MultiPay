@@ -73,14 +73,19 @@ export const SmartAccountProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const data = {
-    smartAccount,
-    provider,
-    setSmartAccount,
-    setProvider,
-    connect,
-    address,
-    loading,
-  };
-  return <SmartAccountContext.Provider value={data}>{children}</SmartAccountContext.Provider>;
+  return (
+    <SmartAccountContext.Provider
+      value={{
+        smartAccount,
+        provider,
+        setSmartAccount,
+        setProvider,
+        connect,
+        address,
+        loading,
+      }}
+    >
+      {children}
+    </SmartAccountContext.Provider>
+  );
 };

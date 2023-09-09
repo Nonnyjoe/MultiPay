@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 export const SideNav = () => {
   return (
@@ -30,7 +30,7 @@ export const SideNav = () => {
             <li className="relative">
               <Link
                 className="flex justify-between gap-2 py-1 pr-3 text-sm transition pl-4 text-zinc-900"
-                to="/dashboard"
+                href="/dashboard"
                 aria-current="page"
               >
                 <span className="truncate">Dashboard</span>
@@ -39,7 +39,7 @@ export const SideNav = () => {
             <li className="relative">
               <Link
                 className="flex justify-between gap-2 py-1 pr-3 text-sm transition pl-4 text-zinc-900"
-                to="/pool"
+                href="/pool"
                 aria-current="page"
               >
                 <span className="truncate">Stake Pool</span>
@@ -48,7 +48,7 @@ export const SideNav = () => {
             <li className="relative">
               <Link
                 className="flex justify-between gap-2 py-1 pr-3 text-sm transition pl-4 text-zinc-900"
-                to="/portfolio"
+                href="/portfolio"
                 aria-current="page"
               >
                 <span className="truncate">My Portfolio</span>
@@ -57,7 +57,7 @@ export const SideNav = () => {
             <li className="relative">
               <Link
                 className="flex justify-between gap-2 py-1 pr-3 text-sm transition pl-4 text-zinc-900"
-                to="/portfolio"
+                href="/portfolio"
                 aria-current="page"
               >
                 <span className="truncate">My Profile</span>
