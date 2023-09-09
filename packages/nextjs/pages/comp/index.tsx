@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { CreateOrganization } from "../../components/CreateOrganization";
+import { Hero } from "../../components/Hero";
 import Layout from "../../components/Layout";
 import type { NextPage } from "next";
 
@@ -13,7 +13,7 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Layout>
-          <CreateOrganization />
+          <Hero />
         </Layout>
       </main>
     </div>

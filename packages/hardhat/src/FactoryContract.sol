@@ -2,6 +2,7 @@
 pragma solidity ^0.8.13;
 
 import "./CompanyContract.sol";
+import "../src/interfaces/IERC1155.sol";
 
 contract FactoryCon {
 
@@ -32,6 +33,7 @@ contract FactoryCon {
         admin = msg.sender;
         tokenForReceipt = _tokenForReceipt;
         tokenForPayment = _tokenForPayment;
+        IERC1155(_tokenForReceipt).initializeFactory();
     }
 
     function createCompany(string memory _name, string memory _symbol) public returns (address) {

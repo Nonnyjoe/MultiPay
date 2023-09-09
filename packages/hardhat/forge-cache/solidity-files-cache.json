@@ -1586,8 +1586,8 @@
       }
     },
     "src/CompanyContract.sol": {
-      "lastModificationDate": 1694222407559,
-      "contentHash": "397a69a470f891200db345e77560f56e",
+      "lastModificationDate": 1694234657733,
+      "contentHash": "d6eb80196e227386c8c2188b079d47ea",
       "sourceName": "src/CompanyContract.sol",
       "solcConfig": {
         "settings": {
@@ -1630,50 +1630,9 @@
         }
       }
     },
-    "src/Counter.sol": {
-      "lastModificationDate": 1693984262000,
-      "contentHash": "ae6c800a2b4c57768024d6e9423d39e8",
-      "sourceName": "src/Counter.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "metadata": {
-            "useLiteralContent": false,
-            "bytecodeHash": "ipfs",
-            "appendCBOR": true
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "paris",
-          "libraries": {}
-        }
-      },
-      "imports": [],
-      "versionRequirement": "^0.8.13",
-      "artifacts": {
-        "Counter": {
-          "0.8.21+commit.d9974bed.Linux.gcc": "Counter.sol/Counter.json"
-        }
-      }
-    },
     "src/ERC1155.sol": {
-      "lastModificationDate": 1694204259319,
-      "contentHash": "988acc1b499d65fc136e5087d742431a",
+      "lastModificationDate": 1694235096579,
+      "contentHash": "d1227aa17646d982c9236ff07b773bb9",
       "sourceName": "src/ERC1155.sol",
       "solcConfig": {
         "settings": {
@@ -1723,8 +1682,8 @@
       }
     },
     "src/FactoryContract.sol": {
-      "lastModificationDate": 1694225565786,
-      "contentHash": "e1674d9f566a143e294d0ab5ca044326",
+      "lastModificationDate": 1694235236016,
+      "contentHash": "5ca53b25880dc6997fc069fed419cb20",
       "sourceName": "src/FactoryContract.sol",
       "solcConfig": {
         "settings": {
@@ -1856,9 +1815,50 @@
         }
       }
     },
+    "src/interfaces/ICHILD.sol": {
+      "lastModificationDate": 1694236008766,
+      "contentHash": "8c9928551e28b83e8852f96964d3fc5e",
+      "sourceName": "src/interfaces/ICHILD.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.13",
+      "artifacts": {
+        "ICHILD": {
+          "0.8.21+commit.d9974bed.Linux.gcc": "ICHILD.sol/ICHILD.json"
+        }
+      }
+    },
     "src/interfaces/IERC1155.sol": {
-      "lastModificationDate": 1694216792823,
-      "contentHash": "417bf69f462f771aab133bc1c40dc882",
+      "lastModificationDate": 1694235160659,
+      "contentHash": "0edaf0273913b9025c7cfc7a55a313d4",
       "sourceName": "src/interfaces/IERC1155.sol",
       "solcConfig": {
         "settings": {
@@ -1980,9 +1980,50 @@
       }
     },
     "test/foundry/Counter.t.sol": {
-      "lastModificationDate": 1694206136206,
-      "contentHash": "1e6f13bcb31c213cdd1f59c68a0c21b0",
+      "lastModificationDate": 1694230672466,
+      "contentHash": "bb8ac493a7e9e0b3e2a1b7655aaf0fe4",
       "sourceName": "test/foundry/Counter.t.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": null,
+      "artifacts": {
+        "Counter.t": {
+          "0.8.21+commit.d9974bed.Linux.gcc": "Counter.t.sol/Counter.t.json"
+        }
+      }
+    },
+    "test/foundry/integrationTest.t.sol": {
+      "lastModificationDate": 1694236053746,
+      "contentHash": "6cbe092cdc9e0f90f555655621d3144c",
+      "sourceName": "test/foundry/integrationTest.t.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -2015,6 +2056,7 @@
       "imports": [
         "lib/forge-std/lib/ds-test/src/test.sol",
         "lib/forge-std/src/Base.sol",
+        "lib/forge-std/src/Script.sol",
         "lib/forge-std/src/StdAssertions.sol",
         "lib/forge-std/src/StdChains.sol",
         "lib/forge-std/src/StdCheats.sol",
@@ -2030,12 +2072,33 @@
         "lib/forge-std/src/console.sol",
         "lib/forge-std/src/console2.sol",
         "lib/forge-std/src/interfaces/IMulticall3.sol",
-        "src/Counter.sol"
+        "lib/openzeppelin-contracts/contracts/token/ERC1155/ERC1155.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC1155/IERC1155.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC1155/IERC1155Receiver.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/IERC1155MetadataURI.sol",
+        "lib/openzeppelin-contracts/contracts/utils/Address.sol",
+        "lib/openzeppelin-contracts/contracts/utils/Context.sol",
+        "lib/openzeppelin-contracts/contracts/utils/introspection/ERC165.sol",
+        "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol",
+        "node_modules/@openzeppelin/contracts/access/Ownable.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
+        "node_modules/@openzeppelin/contracts/utils/Context.sol",
+        "src/CompanyContract.sol",
+        "src/ERC1155.sol",
+        "src/FactoryContract.sol",
+        "src/Ifactory.sol",
+        "src/erc20.sol",
+        "src/interfaces/ICHILD.sol",
+        "src/interfaces/IERC1155.sol",
+        "src/interfaces/IERC20.sol",
+        "src/interfaces/IFACTORY.sol"
       ],
       "versionRequirement": "^0.8.13",
       "artifacts": {
-        "CounterTest": {
-          "0.8.21+commit.d9974bed.Linux.gcc": "Counter.t.sol/CounterTest.json"
+        "integrationTest": {
+          "0.8.21+commit.d9974bed.Linux.gcc": "integrationTest.t.sol/integrationTest.json"
         }
       }
     }
