@@ -3,11 +3,13 @@ pragma solidity ^0.8.13;
 
 import "../src/interfaces/IERC1155.sol";
 import "../src/interfaces/IERC20.sol";
+import "../src/interfaces/IFACTORY.sol";
 
 contract CompanyContract {
     // TODO: Change address zero to USDC address and NFT contract
     address public tokenForPayment = address(0);
-    address public tokenForReceipt = address(0);
+    address public tokenForReceipt;
+    address public factoryContract;
 
     string public name;
     string public symbol;
@@ -18,6 +20,7 @@ contract CompanyContract {
     uint256 public totalSubAvailiable;
     PlansDetails[] public availiablePlans;
     mapping (address => uint256[]) public userToSubscriptions;
+    mapping (address => mapping (uint256 => uint256)) public subscriptionIndex4User;
     mapping (address => mapping(uint256 => uint256)) trackUsersubscription;
     mapping (uint256 => address[]) public TrackDayToUsers;
     uint trackedPlaniDs;
@@ -39,7 +42,16 @@ contract CompanyContract {
         uint256 timeOfSubscription;
         uint256 subscriptionEnds;
         bool autoSubscribe;
+        bool subscriptionStatus;
     }
+
+
+    // EVENTS
+    event planCreated(string name, uint256 price, uint256 duration, uint256 planId);
+    event planActive(uint256 planId, bool planActive);
+    event userSubscribed(string email, bool autoSubscribe, address userAddress, string planName);
+    event subscriptionsUpdated(uint256 time, uint256 totalSubsUpdated);
+    event userRenewed(uint256 planId, address userAddress, bool renewed, uint256 startTime, uint256 endTime);
 
     modifier onlyOwner {
         require(msg.sender == admin, "Only admin can call this function");
@@ -47,12 +59,13 @@ contract CompanyContract {
     }
 
 
-    constructor(string memory _name, string memory _symbol, uint256 _nftId, address _admin){
+    constructor(string memory _name, string memory _symbol, uint256 _nftId, address _admin, address _factoryContract, address _tokenForReceipt){
         name = _name;
         symbol = _symbol;
         nftId = _nftId;
         admin = _admin;
-
+        factoryContract = _factoryContract;
+        tokenForReceipt = _tokenForReceipt;
     }
 
     function createPlan(string memory _planName, uint _planPrice, uint256 _planDuration) public onlyOwner {
@@ -62,18 +75,21 @@ contract CompanyContract {
         _newPlan.planID = trackedPlaniDs;      
         _newPlan.planDuration = _planDuration;      
         availiablePlans.push(_newPlan);
+        emit planCreated(_planName, _planPrice, _planDuration, trackedPlaniDs);
         trackedPlaniDs++;
     }
 
     function activatePlan(uint256 _planId) public onlyOwner returns (bool) {
         require(_planId <= availiablePlans.length, "Plan does not exist");
         availiablePlans[_planId].planActive = true;
+        emit planActive(_planId, availiablePlans[_planId].planActive);
         return true;
     }
 
     function deactivatePlan(uint256 _planId) public onlyOwner returns (bool) {
         require(_planId <= availiablePlans.length, "Plan does not exist");
         availiablePlans[_planId].planActive = false;
+        emit planActive(_planId, availiablePlans[_planId].planActive);
         return true;
     }
 
@@ -83,16 +99,18 @@ contract CompanyContract {
         require(_planToSub.planActive, "Plan deactivated");
         uint256 planDuration = _planToSub.planDuration;
         uint256 userSubEnds = block.timestamp + (planDuration * oneMonthTimestamp);
-        UserDetails memory _userInfo =  UserDetails (msg.sender, _userEmail, block.timestamp, userSubEnds, _autoSubscribe);
+        UserDetails memory _userInfo =  UserDetails (msg.sender, _userEmail, block.timestamp, userSubEnds, _autoSubscribe, true);
+        subscriptionIndex4User[msg.sender][_planId] = userToSubscriptions[msg.sender].length;
         userToSubscriptions[msg.sender].push(_planId);
-        trackUsersubscription[msg.sender][(userToSubscriptions[msg.sender].length)] = _planToSub.subscribersData.length;
+        trackUsersubscription[msg.sender][_planId] = _planToSub.subscribersData.length;
         _planToSub.subscribersData.push(_userInfo);
         _planToSub.totalSubscribers++;
         TrackDayToUsers[getDayFromTimestamp(block.timestamp)].push(msg.sender);
         userId = _planToSub.subscribersData.length;
         IERC20(tokenForPayment).transferFrom(msg.sender, address(this), _planToSub.price);
-        IERC1155(tokenForReceipt).safeTransferFrom(msg.sender, address(this), _planId, _planToSub.price, "");
-
+        IERC1155(tokenForReceipt).MintSubScription(msg.sender, _planId, 1);
+        IFACTORY(factoryContract).UpdateSubscriptionContracts(msg.sender);
+        emit userSubscribed(_userEmail, _autoSubscribe, msg.sender, _planToSub.planName);
     }
 
     function chainlinkDailyCall() public {
@@ -103,15 +121,18 @@ contract CompanyContract {
             for (uint j; j < subscriptions.length; j++) {
                 uint subIndex = trackUsersubscription[AutoRenewals[i]][subscriptions[j]];
                 if(availiablePlans[subscriptions[j]].subscribersData[subIndex].autoSubscribe = true 
-                && getDayFromTimestamp(availiablePlans[subscriptions[j]].subscribersData[subIndex].timeOfSubscription) == getDayFromTimestamp(block.timestamp)) {
+                && getDayFromTimestamp(availiablePlans[subscriptions[j]].subscribersData[subIndex].timeOfSubscription) == getDayFromTimestamp(block.timestamp) && 
+                availiablePlans[subscriptions[j]].subscribersData[subIndex].subscriptionStatus == true
+                ) {
                     autoRenew(subscriptions[j], AutoRenewals[i]);
                 }
             }
+            emit subscriptionsUpdated(block.timestamp, AutoRenewals.length);
         }
         lastCallTime = block.timestamp;
     }
 
-    function autoRenew(uint256 _planId, address _user) public returns (bool success){
+    function autoRenew(uint256 _planId, address _user) internal returns (bool success){
         // PlansDetails storage _planToSub = IdToPlanDetails[_planId];
        uint256 userIndex = trackUsersubscription[_user][_planId];
         uint256 planDuration = availiablePlans[_planId].planDuration;
@@ -121,10 +142,35 @@ contract CompanyContract {
         if ((userBallance / 1e18) >= availiablePlans[_planId].price) {
             IERC20(tokenForPayment).transferFrom(msg.sender, address(this), availiablePlans[_planId].price);
             availiablePlans[_planId].subscribersData[userIndex].timeOfSubscription = block.timestamp;
-            availiablePlans[_planId].subscribersData[userIndex].subscriptionEnds = userSubEnds;            
+            availiablePlans[_planId].subscribersData[userIndex].subscriptionEnds = userSubEnds;   
+            emit userRenewed(_planId, _user, true, block.timestamp, userSubEnds);        
+            return true;
         } else {
-            
+            availiablePlans[_planId].subscribersData[userIndex].subscriptionStatus = false;
+            // emit AutorenewalFailed
+            emit userRenewed(_planId, _user, false, availiablePlans[_planId].subscribersData[userIndex].timeOfSubscription , 0);
+            return false;
         }
+
+    }
+
+    function unSubscribe(uint256 _planId, address _user) external returns (bool success) {
+        require(msg.sender == _user, "NOT AUTORIZED");
+        uint256 userIndex = trackUsersubscription[_user][_planId];
+        availiablePlans[_planId].subscribersData[userIndex].subscriptionStatus = false;
+        if (userToSubscriptions[msg.sender].length > 1) {
+            uint subindex = subscriptionIndex4User[msg.sender][_planId];
+            uint lastIndex = userToSubscriptions[msg.sender].length - 1;
+            uint lastID = userToSubscriptions[msg.sender][lastIndex];
+            userToSubscriptions[msg.sender][subindex] = userToSubscriptions[msg.sender][lastIndex];
+            userToSubscriptions[msg.sender].pop();
+            // subscriptionIndex4User[msg.sender][_planId] = 0;
+            subscriptionIndex4User[msg.sender][lastID] = subscriptionIndex4User[msg.sender][_planId];
+        } else {
+            userToSubscriptions[msg.sender].pop();
+            IFACTORY(factoryContract).RemoveSubscribedContract(_user);
+        }
+        return true;
     }
     
     function AvailablePlans() public view returns(PlansDetails[] memory){
@@ -186,4 +232,5 @@ contract CompanyContract {
         require(_planId <= availiablePlans.length, "Plan does not exist");
         plan = availiablePlans[_planId];
     }
+
 }
