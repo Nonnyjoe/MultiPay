@@ -3,23 +3,6 @@ import { Hero } from "../../components/Hero";
 import Layout from "../../components/Layout";
 import type { NextPage } from "next";
 import { CompanySideNav } from "~~/components/CompanySideNav";
-
-import { gql, useQuery } from 'urql';
-
-const TodosQuery = gql`
-{
-    planCreateds {
-      id
-      name
-      planId
-      blockNumber
-      blockTimestamp
-      duration
-      price
-      transactionHash
-    }
-  }
-`;
     
 
 import { gql, useQuery } from 'urql';
@@ -60,19 +43,21 @@ const Home: NextPage = () => {
         <Layout>
           <div className="flex flex-row">
             <CompanySideNav />
+            <div>
             <Hero />
-          <div className="w-[1200px] mx-auto mt-[20px]">
-            <h1 className="text-[20px] font-[700]">Available Plans</h1>
-                    {data.planCreateds.map((plan : any, id: number)=>{
-                        return <div key={id}>
-                        <h1>Plan Name: {plan.name}</h1>
-                        <h1>Plan ID: {plan.planId}</h1>
-                        <h1>Plan Duration: {plan.duration} month</h1>
-                        <h1>Plan Price: {plan.price}</h1>
-                        </div>
-                    })}
-              <h1 className="text-[20px] font-[700] mt-[20px]">Subcriber lists</h1>
+              <div className="w-[1200px] mx-auto mt-[20px] border m-1 p-2 rounded-lg">
+                <h1 className="text-[20px] font-[700]">Available Plans</h1>
+                        {data.planCreateds.map((plan : any, id: number)=>{
+                            return <div key={id}>
+                            <h1>Plan Name: {plan.name}</h1>
+                            <h1>Plan ID: {plan.planId}</h1>
+                            <h1>Plan Duration: {plan.duration} month</h1>
+                            <h1>Plan Price: {plan.price}</h1>
+                            </div>
+                        })}
+                  <h1 className="text-[20px] font-[700] mt-[20px]">Subcriber lists</h1>
                 </div>
+            </div>
           </div>
         </Layout>
       </main>

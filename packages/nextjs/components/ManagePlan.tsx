@@ -9,9 +9,16 @@ export const ManagePlan = () => {
                     Manage users subscription
                 </h1>
                 <div>
+                <div className="border m-0 p-4 gap-4 rounded-lg">
                     <p>DSTV</p>
-                    <p>Total subscribers</p>
+                    <p>Total subscribers: 50</p>
                 </div>
+                <div className="border m-0 p-4 gap-4 rounded-lg">
+                    <p>MTN</p>
+                    <p>Total subscribers: 300</p>
+                </div>
+                </div>
+                
             </FadeIn>
         </Container>
     )
